@@ -1,0 +1,184 @@
+package FORM;
+
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.JMenuBar;
+import javax.swing.JDesktopPane;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
+
+public class MainForm extends JFrame {
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    MainForm frame = new MainForm();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private static final long serialVersionUID = 1L;
+    public JPanel contentPane;
+    public JDesktopPane desktopPane;
+    public JMenu mnThongKe;
+    private JMenu mnChucNang;
+    public JCheckBoxMenuItem chkPhieuLapSach;
+    private JCheckBoxMenuItem chkMonHoc;
+    private JCheckBoxMenuItem chkLop;
+    private JCheckBoxMenuItem chkPhongThi;
+    private JCheckBoxMenuItem chkNganh;
+    public JCheckBoxMenuItem chkKhoa;
+    public JCheckBoxMenuItem chkSinhVien;
+    public JCheckBoxMenuItem chkGiangVien;
+    public JMenu mnQuanLy;
+    public JCheckBoxMenuItem chkThoat;
+    public JCheckBoxMenuItem chkDangXuat;
+    private JCheckBoxMenuItem chkUser;
+    public JCheckBoxMenuItem chkDangNhap;
+    private JCheckBoxMenuItem chkLapLichThiTN;
+    private JCheckBoxMenuItem chkHocBa;
+    private JCheckBoxMenuItem chkDanhSachPhongThi;
+    private JCheckBoxMenuItem chkLapLichThi;
+    private JCheckBoxMenuItem chkNhapDiem;
+    private JCheckBoxMenuItem chkDkCoiThi;
+    private JCheckBoxMenuItem chkPCCoiThi;
+    public JMenu mnHeThong;
+    public JMenuBar menuBar;
+
+    public MainForm() {
+        this.init();
+    }
+
+    public void init() {
+
+        this.setSize(900, 600);
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+
+        Font menuFont = new Font("Arial", Font.PLAIN, 14);
+        Color fontColor = Color.BLACK;
+
+        mnHeThong = new JMenu("Hệ thống");
+        mnHeThong.setFont(menuFont);
+        menuBar.add(mnHeThong);
+
+        chkDangNhap = new JCheckBoxMenuItem("Đăng nhập");
+        chkDangNhap.setFont(menuFont);
+        chkDangNhap.setForeground(fontColor);
+        mnHeThong.add(chkDangNhap);
+
+        chkDangXuat = new JCheckBoxMenuItem("Đăng xuất");
+        chkDangXuat.setFont(menuFont);
+        chkDangXuat.setForeground(fontColor);
+        mnHeThong.add(chkDangXuat);
+
+        chkUser = new JCheckBoxMenuItem("Thông tin User");
+        chkUser.setFont(menuFont);
+        chkUser.setForeground(fontColor);
+        mnHeThong.add(chkUser);
+
+        chkThoat = new JCheckBoxMenuItem("Thoát");
+        chkThoat.setFont(menuFont);
+        chkThoat.setForeground(fontColor);
+        mnHeThong.add(chkThoat);
+
+        mnQuanLy = new JMenu("Danh mục");
+        mnQuanLy.setFont(menuFont);
+        menuBar.add(mnQuanLy);
+
+        chkGiangVien = new JCheckBoxMenuItem("Quản lý giảng viên");
+        chkGiangVien.setFont(menuFont);
+        chkGiangVien.setForeground(fontColor);
+        mnQuanLy.add(chkGiangVien);
+
+        chkSinhVien = new JCheckBoxMenuItem("Quản lý sinh viên");
+        chkSinhVien.setFont(menuFont);
+        chkSinhVien.setForeground(fontColor);
+        mnQuanLy.add(chkSinhVien);
+
+        chkKhoa = new JCheckBoxMenuItem("Quản lý khoa");
+        chkKhoa.setFont(menuFont);
+        chkKhoa.setForeground(fontColor);
+        mnQuanLy.add(chkKhoa);
+
+        chkNganh = new JCheckBoxMenuItem("Quản lý ngành");
+        chkNganh.setFont(menuFont);
+        chkNganh.setForeground(fontColor);
+        mnQuanLy.add(chkNganh);
+
+        chkMonHoc = new JCheckBoxMenuItem("Quản lý môn học");
+        chkMonHoc.setFont(menuFont);
+        chkMonHoc.setForeground(fontColor);
+        mnQuanLy.add(chkMonHoc);
+
+        chkLop = new JCheckBoxMenuItem("Quản lý lớp");
+        chkLop.setFont(menuFont);
+        chkLop.setForeground(fontColor);
+        mnQuanLy.add(chkLop);
+
+        chkPhongThi = new JCheckBoxMenuItem("Quản lý phòng thi");
+        chkPhongThi.setFont(menuFont);
+        chkPhongThi.setForeground(fontColor);
+        mnQuanLy.add(chkPhongThi);
+
+        mnChucNang = new JMenu("Chức năng");
+        mnChucNang.setFont(menuFont);
+        menuBar.add(mnChucNang);
+
+        chkPCCoiThi = new JCheckBoxMenuItem("Phân công coi thi");
+        chkPCCoiThi.setFont(menuFont);
+        chkPCCoiThi.setForeground(fontColor);
+        mnChucNang.add(chkPCCoiThi);
+
+        chkDkCoiThi = new JCheckBoxMenuItem("Đăng ký coi thi");
+        chkDkCoiThi.setFont(menuFont);
+        chkDkCoiThi.setForeground(fontColor);
+        mnChucNang.add(chkDkCoiThi);
+
+        chkNhapDiem = new JCheckBoxMenuItem("Nhập điểm");
+        chkNhapDiem.setFont(menuFont);
+        chkNhapDiem.setForeground(fontColor);
+        mnChucNang.add(chkNhapDiem);
+
+        chkLapLichThi = new JCheckBoxMenuItem("Lập lịch thi");
+        chkLapLichThi.setFont(menuFont);
+        chkLapLichThi.setForeground(fontColor);
+        mnChucNang.add(chkLapLichThi);
+
+        chkLapLichThiTN = new JCheckBoxMenuItem("Lập lịch thi tốt nghiệp");
+        chkLapLichThiTN.setFont(menuFont);
+        chkLapLichThiTN.setForeground(fontColor);
+        mnChucNang.add(chkLapLichThiTN);
+
+        mnThongKe = new JMenu("Thống kê & In ấn");
+        mnThongKe.setFont(menuFont);
+        menuBar.add(mnThongKe);
+
+        chkDanhSachPhongThi = new JCheckBoxMenuItem("Danh sách sinh viên phòng thi");
+        chkDanhSachPhongThi.setFont(menuFont);
+        chkDanhSachPhongThi.setForeground(fontColor);
+        mnThongKe.add(chkDanhSachPhongThi);
+
+        chkHocBa = new JCheckBoxMenuItem("Học bạ");
+        chkHocBa.setFont(menuFont);
+        chkHocBa.setForeground(fontColor);
+        mnThongKe.add(chkHocBa);
+
+        desktopPane = new JDesktopPane();
+        getContentPane().add(desktopPane);
+
+    }
+}

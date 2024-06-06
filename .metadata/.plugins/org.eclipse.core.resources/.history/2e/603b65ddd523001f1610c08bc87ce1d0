@@ -1,0 +1,13 @@
+package DAO;
+
+import java.sql.Connection;
+
+public class ClassesDAO {
+private Connection con;
+
+public ClassesDAO() {
+	con = DataProvider.getInstance().getConnection();
+}
+
+
+}

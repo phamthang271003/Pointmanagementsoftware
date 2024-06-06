@@ -1,0 +1,5 @@
+INDEX VERSION 1.134+D:\Các Môn HK6\java\Pointmanagementsoftware\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+2831830720.index
+3413270776.index
+518094893.index

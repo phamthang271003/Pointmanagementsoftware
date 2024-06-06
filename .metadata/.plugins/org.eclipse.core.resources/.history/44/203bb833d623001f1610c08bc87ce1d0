@@ -1,0 +1,32 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import DTO.ClassesDto;
+
+public class ClassesDao {
+private Connection con;
+
+public ClassesDao() {
+	con = DataProvider.getInstance().getConnection();
+}
+public ArrayList<ClassesDto> MenuReceipt() throws SQLException {
+    ArrayList<ClassesDto> list = new ArrayList<>();
+    String sql = "SELECT * FROM [classes]";
+    PreparedStatement p = con.prepareStatement(sql);
+    ResultSet r = p.executeQuery();
+    while (r.next()) {
+        String class_id = r.getString(1);
+        String class_name = r.getString(2);
+        ClassesDto data = new ClassesDto(class_id, class_name);
+        list.add(data);
+    }
+    r.close();
+    p.close();
+    return list;
+}
+}

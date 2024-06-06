@@ -1,0 +1,78 @@
+package FORM;
+
+import java.awt.EventQueue;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import BUS.ClassesBUS;
+import DTO.ClassesDTO;
+
+public class ClassesForm extends JInternalFrame {
+
+    private static final long serialVersionUID = 1L;
+    private MainForm mainForm;
+    private JTable table;
+    private JTextField textField;
+    private JTextField textField_1;
+    private ClassesBUS classesBUS;
+    private DefaultTableModel tableModel;
+
+    public ClassesForm() {
+        this.mainForm = new MainForm();
+        this.classesBUS = new ClassesBUS();
+
+        JLabel lblNewLabel = new JLabel("Class ID");
+        lblNewLabel.setBounds(79, 70, 45, 13);
+        mainForm.desktopPane.add(lblNewLabel);
+
+        textField = new JTextField();
+        textField.setBounds(154, 67, 96, 19);
+        mainForm.desktopPane.add(textField);
+        textField.setColumns(10);
+
+        JLabel lblNewLabel_1 = new JLabel("Class Name");
+        lblNewLabel_1.setBounds(79, 101, 75, 13);
+        mainForm.desktopPane.add(lblNewLabel_1);
+
+        textField_1 = new JTextField();
+        textField_1.setBounds(154, 98, 96, 19);
+        mainForm.desktopPane.add(textField_1);
+        textField_1.setColumns(10);
+
+        this.init();
+        this.fetchAndDisplayClasses();
+    }
+
+    public void init() {
+        this.setTitle("Quản lý lớp");
+        this.setSize(550, 500);
+        getContentPane().setLayout(null);
+
+        // Create a table model
+        tableModel = new DefaultTableModel();
+        tableModel.addColumn("Class ID");
+        tableModel.addColumn("Class Name");
+
+        // Create a table with the model
+        table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(50, 150, 450, 300);
+        getContentPane().add(scrollPane);
+    }
+
+    public void fetchAndDisplayClasses() {
+        ArrayList<ClassesDTO> classesList = classesBUS.getAllClasses();
+        for (ClassesDTO classDTO : classesList) {
+            tableModel.addRow(new Object[]{classDTO.getClass_id(), classDTO.getClass_name()});
+        }
+    }
+}

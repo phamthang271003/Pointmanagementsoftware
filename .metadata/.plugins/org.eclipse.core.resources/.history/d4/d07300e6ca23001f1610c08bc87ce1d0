@@ -1,0 +1,115 @@
+package FORM;
+
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+
+import java.awt.BorderLayout;
+import javax.swing.JMenuBar;
+import javax.swing.JDesktopPane;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
+
+public class MainForm extends JFrame {
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					MainForm frame = new MainForm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+
+	private static final long serialVersionUID = 1L;
+	public JPanel contentPane;
+
+	public JDesktopPane desktopPane;
+
+	public JMenu mnHuongDan;
+
+	public JCheckBoxMenuItem chkPhieuLapSach;
+
+	public JCheckBoxMenuItem chkHoaDon;
+
+	public JCheckBoxMenuItem chkSach;
+
+	public JCheckBoxMenuItem chkLoaiSach;
+
+	public JMenu mnQuanLy;
+
+	public JCheckBoxMenuItem chkThoat;
+
+	public JCheckBoxMenuItem chkDangXuat;
+
+	public JCheckBoxMenuItem chkDangNhap;
+
+	public JMenu mnHeThong;
+
+	public JMenuBar menuBar;
+
+	public MainForm() {
+		this.init();
+	}
+
+	public void init() {
+
+		this.setSize(900,600);
+		this.setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+	
+
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+
+
+		mnHeThong = new JMenu("Hệ thống");
+		menuBar.add(mnHeThong);
+
+		chkDangNhap = new JCheckBoxMenuItem("Đăng nhập");
+		mnHeThong.add(chkDangNhap);
+
+		chkDangXuat = new JCheckBoxMenuItem("Đăng xuất");
+		mnHeThong.add(chkDangXuat);
+
+		chkThoat = new JCheckBoxMenuItem("Thoát");
+		mnHeThong.add(chkThoat);
+
+		mnQuanLy = new JMenu("Quản lý");
+		menuBar.add(mnQuanLy);
+
+		chkLoaiSach = new JCheckBoxMenuItem("Loại sách");
+		mnQuanLy.add(chkLoaiSach);
+
+		
+		chkSach = new JCheckBoxMenuItem("Sách");
+		mnQuanLy.add(chkSach);
+
+		chkHoaDon = new JCheckBoxMenuItem("Hóa đơn");
+		mnQuanLy.add(chkHoaDon);
+
+		chkPhieuLapSach = new JCheckBoxMenuItem("Phiếu lập sách");
+		mnQuanLy.add(chkPhieuLapSach);
+
+		mnHuongDan = new JMenu("Hướng dẫn");
+		menuBar.add(mnHuongDan);
+
+		desktopPane = new JDesktopPane();
+		getContentPane().add(desktopPane);
+		
+		
+
+
+	}
+
+}

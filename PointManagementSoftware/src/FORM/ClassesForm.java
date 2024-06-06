@@ -1,0 +1,50 @@
+package FORM;
+
+import java.util.ArrayList;
+
+
+import javax.swing.JInternalFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import javax.swing.table.DefaultTableModel;
+
+import BUS.ClassesBUS;
+import DTO.ClassesDTO;
+
+public class ClassesForm extends JInternalFrame {
+
+    private static final long serialVersionUID = 1L;
+    private JTable table;
+    private ClassesBUS classesBUS;
+    private DefaultTableModel tableModel;
+
+    public ClassesForm() {
+        this.classesBUS = new ClassesBUS();
+
+        this.init();
+        this.tableClass();
+    }
+
+    public void init() {
+        this.setTitle("Quản lý lớp");
+        this.setSize(1000, 500);
+        getContentPane().setLayout(null);
+
+        tableModel = new DefaultTableModel();
+        tableModel.addColumn("Class ID");
+        tableModel.addColumn("Class Name");
+
+        table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(50, 150, 450, 300);
+        getContentPane().add(scrollPane);
+    }
+
+    public void tableClass() {
+        ArrayList<ClassesDTO> classesList = classesBUS.getAllClasses();
+        for (ClassesDTO classDTO : classesList) {
+            tableModel.addRow(new Object[]{classDTO.getClass_id(), classDTO.getClass_name()});
+        }
+    }
+}

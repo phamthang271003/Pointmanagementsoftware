@@ -1,0 +1,61 @@
+package FORM;
+
+import java.awt.EventQueue;
+
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+public class ClassesForm extends JInternalFrame {
+
+	private static final long serialVersionUID = 1L;
+	private MainForm mainForm;
+	private JTable table;
+
+	public ClassesForm() {
+		this.mainForm = new MainForm();
+		this.init();
+		this.initTable();
+	}
+
+	
+	public void init() {
+		this.setTitle("Quản lý lớp");
+		this.setSize(550,500);
+		//setBounds(100, 100, 567, 450);
+		getContentPane().setLayout(null);
+
+		
+		
+
+		table = new JTable();
+		table.setFillsViewportHeight(true);
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Mã lớp", "Tên lớp" }));
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+		JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(10, 10, 493, 249);
+		panel_1.add(scrollPane);
+		
+
+	}
+	public void initTable() {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		try {
+			list = nhaSachController.MenuLoaiSach();
+			for (LoaiSachModel data : list) {
+				model.addRow(new Object[] { data.getLS_ID(), data.getTen(), data.getMoTa() });
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	
+}
