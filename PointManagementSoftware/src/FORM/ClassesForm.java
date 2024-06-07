@@ -39,6 +39,7 @@ public class ClassesForm extends JInternalFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(50, 150, 450, 300);
         getContentPane().add(scrollPane);
+		System.out.println("Hello");
     }
 
     public void tableClass() {

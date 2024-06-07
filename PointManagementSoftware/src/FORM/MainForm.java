@@ -74,6 +74,7 @@ public class MainForm extends JFrame {
 	public MainForm() {
 		this.init();
 		DataProvider.getInstance().connectToDatabase();
+		System.out.println("Hello");
 		
 	}
 
