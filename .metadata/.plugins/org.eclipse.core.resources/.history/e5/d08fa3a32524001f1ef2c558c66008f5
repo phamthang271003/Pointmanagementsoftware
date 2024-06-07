@@ -1,0 +1,159 @@
+package FORM;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import BUS.StudentBUS;
+import DAO.DataProvider;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class frmStudents extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTable tb_ListStudent;
+	private StudentBUS studentBUS;
+	private JComboBox cboLop;
+	private JComboBox cboNganh;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					frmStudents frame = new frmStudents();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public frmStudents() {
+		DataProvider.getInstance().connectToDatabase();
+		this.studentBUS=new StudentBUS();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 928, 635);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Tải file excel");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(10, 10, 88, 28);
+		contentPane.add(lblNewLabel);
+		
+		JButton btnAddStudent = new JButton("Đọc file excel");
+		btnAddStudent.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAddStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 JFileChooser fileChooser = new JFileChooser();
+	                int result = fileChooser.showOpenDialog(null);
+	                if (result == JFileChooser.APPROVE_OPTION) {
+	                    File selectedFile = fileChooser.getSelectedFile();
+	                    try {
+	                        readExcelFile(selectedFile);
+	                    } catch (IOException ex) {
+	                        ex.printStackTrace();
+	                        JOptionPane.showMessageDialog(null, "Error reading file: " + ex.getMessage());
+	                    }
+	                }
+			}
+		});
+		btnAddStudent.setBounds(10, 48, 152, 33);
+		contentPane.add(btnAddStudent);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(172, 10, 732, 578);
+		contentPane.add(scrollPane);
+		
+		tb_ListStudent = new JTable();
+		tb_ListStudent.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "MSSV", "Họ Tên", "Ngày Nhập Học", "Học Kì", "Giới Tính", "Ngày Sinh", "Địa chỉ"
+                }
+        ));
+        scrollPane.setViewportView(tb_ListStudent);
+        
+        JLabel lblNewLabel_1 = new JLabel("Ngành");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblNewLabel_1.setBounds(10, 111, 88, 28);
+        contentPane.add(lblNewLabel_1);
+        
+        JLabel lblNewLabel_2 = new JLabel("Lớp");
+        lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblNewLabel_2.setBounds(10, 211, 88, 28);
+        contentPane.add(lblNewLabel_2);
+        
+        cboNganh = new JComboBox();
+        cboNganh.setBounds(10, 147, 152, 28);
+        contentPane.add(cboNganh);
+        
+        cboLop = new JComboBox();
+        cboLop.setBounds(10, 246, 152, 28);
+        contentPane.add(cboLop);
+	}
+	
+	private void setCboClass()
+	{
+		 String[] classes = studentBUS.takeInforClasses(); // Lấy danh sách các lớp từ StudentBUS
+	     for (String className : classes) {
+	          cboLop.addItem(className); // Thêm tên lớp vào JComboBox
+	     }
+	}
+	
+	 private void readExcelFile(File file) throws IOException {
+	        FileInputStream fis = new FileInputStream(file);
+	        Workbook workbook = new XSSFWorkbook(fis);
+	        Sheet sheet = workbook.getSheetAt(0);
+	        DefaultTableModel model = (DefaultTableModel) tb_ListStudent.getModel();
+	        model.setRowCount(0); // Clear existing data
+
+	        for (Row row : sheet) {
+	            if (row.getRowNum() == 0) {
+	                continue; // Skip header row
+	            }
+	            String[] rowData = new String[7];
+	            for (int cn = 0; cn < 7; cn++) {
+	                Cell cell = row.getCell(cn, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+	                rowData[cn] = cell.toString();
+	            }
+	            model.addRow(rowData);
+	        }
+
+	        workbook.close();
+	        fis.close();
+	    }
+}

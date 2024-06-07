@@ -1,0 +1,78 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import DTO.TeacherDTO;
+
+public class TeacherDAO {
+
+	private Connection con;
+	
+	public TeacherDAO() {
+		con = DataProvider.getInstance().getConnection();
+	}
+	
+	public String[] takeInforDeparts() {
+		ArrayList<String> classInfoList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "EXEC takeInforDepart";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				classInfoList.add(rs.getString("DepartInfo"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return classInfoList.toArray(new String[0]);
+	}
+	
+	public List<TeacherDTO> takeAllTeachers() {
+        List<TeacherDTO> teacherList = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "EXEC takeAllTeacher";
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String teaId = rs.getString("tea_id");
+                String teaName = rs.getString("tea_name");
+                String teaSex = rs.getString("tea_sex");
+                String departId = rs.getString("depart_id");
+                TeacherDTO teacher = new TeacherDTO(teaId, teaName, teaSex, departId);
+                teacherList.add(teacher);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return teacherList;
+    }
+}

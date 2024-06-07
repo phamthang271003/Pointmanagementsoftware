@@ -1,0 +1,127 @@
+package FORM;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.File;
+import java.io.FileInputStream;
+
+public class frmStudents extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTable tb_ListStudent;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frmStudents frame = new frmStudents();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public frmStudents() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 928, 635);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(10, 10, 45, 13);
+		contentPane.add(lblNewLabel);
+		
+		JButton btnAddStudent = new JButton("Đọc file excel");
+		btnAddStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    loadExcelData(selectedFile);
+                }
+			}
+		});
+		btnAddStudent.setBounds(70, 6, 131, 33);
+		contentPane.add(btnAddStudent);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(211, 10, 693, 578);
+		contentPane.add(scrollPane);
+		
+		tb_ListStudent = new JTable();
+		tb_ListStudent.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "MSSV", "Họ Tên", "Ngày Nhập Học", "Học Kì", "Giới Tính", "Ngày Sinh", "Địa chỉ"
+                }
+        ));
+        scrollPane.setViewportView(tb_ListStudent);
+	}
+	
+	 private void loadExcelData(File file) {
+	        DefaultTableModel model = (DefaultTableModel) tb_ListStudent.getModel();
+	        model.setRowCount(0); // Clear table
+
+	        try (FileInputStream fis = new FileInputStream(file);
+	                XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
+	            XSSFSheet sheet = workbook.getSheetAt(0); // Assuming data is in the first sheet
+	            int rowCount = sheet.getPhysicalNumberOfRows();
+
+	            for (int i = 1; i < rowCount; i++) { // Start from row 1 to skip header
+	                Row row = sheet.getRow(i);
+	                Object[] rowData = new Object[7]; // Assuming there are 7 columns
+
+	                for (int j = 0; j < 7; j++) { // Assuming there are 7 columns
+	                    Cell cell = row.getCell(j);
+	                    switch (cell.getCellType()) {
+	                        case STRING:
+	                            rowData[j] = cell.getStringCellValue();
+	                            break;
+	                        case NUMERIC:
+	                            rowData[j] = cell.getNumericCellValue();
+	                            break;
+	                        default:
+	                            rowData[j] = "";
+	                            break;
+	                    }
+	                }
+
+	                model.addRow(rowData);
+	            }
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+}

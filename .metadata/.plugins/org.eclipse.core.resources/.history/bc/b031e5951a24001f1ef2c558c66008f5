@@ -1,0 +1,109 @@
+package FORM;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import java.awt.Font;
+import javax.swing.JButton;
+
+public class frmStudents extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtTenGV;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frmStudents frame = new frmStudents();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public frmStudents() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1011, 635);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(10, 10, 408, 267);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Họ tên:");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNewLabel.setBounds(24, 62, 79, 29);
+		panel.add(lblNewLabel);
+		
+		txtTenGV = new JTextField();
+		txtTenGV.setBounds(114, 69, 252, 19);
+		panel.add(txtTenGV);
+		txtTenGV.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Giới tính:");
+		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNewLabel_2.setBounds(24, 113, 79, 29);
+		panel.add(lblNewLabel_2);
+		
+		JComboBox cboGT = new JComboBox();
+		cboGT.setBounds(114, 117, 252, 21);
+		panel.add(cboGT);
+		
+		JLabel lblNewLabel_3 = new JLabel("Khoa:");
+		lblNewLabel_3.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(24, 166, 79, 29);
+		panel.add(lblNewLabel_3);
+		
+		JComboBox cboKhoa = new JComboBox();
+		cboKhoa.setBounds(114, 171, 252, 21);
+		panel.add(cboKhoa);
+		
+		JLabel lblNewLabel_4 = new JLabel("Nhập một giảng viên");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNewLabel_4.setBounds(97, 10, 228, 29);
+		panel.add(lblNewLabel_4);
+		
+		JButton btnThem = new JButton("Thêm");
+		btnThem.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnThem.setBounds(24, 216, 101, 29);
+		panel.add(btnThem);
+		
+		JButton btnSua = new JButton("Sửa");
+		btnSua.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnSua.setBounds(151, 216, 101, 29);
+		panel.add(btnSua);
+		
+		JButton btnXoa = new JButton("Xóa");
+		btnXoa.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnXoa.setBounds(278, 216, 101, 29);
+		panel.add(btnXoa);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_1.setBounds(10, 287, 408, 301);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+	}
+}

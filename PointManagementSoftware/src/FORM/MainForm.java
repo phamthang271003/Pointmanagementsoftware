@@ -79,7 +79,7 @@ public class MainForm extends JFrame {
 
 	public void init() {
 
-		this.setSize(1000, 600);
+		this.setSize(1200, 759);
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -163,6 +163,18 @@ public class MainForm extends JFrame {
             	cf.setVisible(true);
             }
         });
+		
+		chkGiangVien.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Bạn đã nhấn nút quản lý giảng viên");
+				frmTeacher frm=new frmTeacher();
+				desktopPane.add(frm);
+				frm.setVisible(true);
+			}
+		});
 	}
 	
 

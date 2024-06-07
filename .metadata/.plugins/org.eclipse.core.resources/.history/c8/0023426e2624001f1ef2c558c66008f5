@@ -1,0 +1,18 @@
+package BUS;
+
+import DAO.StudentDAO;
+
+public class StudentBUS {
+
+	private StudentDAO studentDAO;
+	
+	public StudentBUS()
+	{
+		studentDAO=new StudentDAO();
+	}
+	
+	public String[] takeInforClasses()
+	{
+		return studentDAO.takeInforClasses();
+	}
+}

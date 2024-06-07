@@ -1,0 +1,45 @@
+package DAO;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class StudentDAO {
+	
+	private Connection con;
+	
+	public StudentDAO() {
+		con = DataProvider.getInstance().getConnection();
+	}
+	
+	public String[] takeInforClasses() {
+		ArrayList<String> classInfoList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "EXEC takeInforClass";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				classInfoList.add(rs.getString("ClassInfo"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return classInfoList.toArray(new String[0]);
+	}
+
+}

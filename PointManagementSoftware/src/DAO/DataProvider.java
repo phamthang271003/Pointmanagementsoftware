@@ -23,7 +23,7 @@ public class DataProvider {
 
 //Thực hiện kết nối tới Database
 	public void connectToDatabase() {
-		String strServer = "LAPTOP-5KVBJE6O\\SQLEXPRESS";
+		String strServer = "DESKTOP-741DDSM\\DIEN";
 		String strDatabase = "db_QLDiemSV";
 
 		String userName = "sa";

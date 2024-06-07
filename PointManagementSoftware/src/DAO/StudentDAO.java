@@ -1,0 +1,130 @@
+package DAO;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class StudentDAO {
+	
+	private Connection con;
+	
+	public StudentDAO() {
+		con = DataProvider.getInstance().getConnection();
+	}
+	
+	public String[] takeInforClasses() {
+		ArrayList<String> classInfoList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "EXEC takeInforClass";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				classInfoList.add(rs.getString("ClassInfo"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return classInfoList.toArray(new String[0]);
+	}
+	
+	public String[] takeInforAca() {
+		ArrayList<String> classInfoList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "EXEC takeInforAca";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				classInfoList.add(rs.getString("AcaInfo"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return classInfoList.toArray(new String[0]);
+	}
+
+	public int checkStudentId(String idStudent)
+	{
+		int result = 0; // Mặc định là 0 nếu không tìm thấy sinh viên
+
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        String sql = "EXEC checkStudentId ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setString(1, idStudent);
+
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            result = rs.getInt("Result");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return result;
+	}
+	
+	public void insertStudent(String stu_id, String stu_name, String stu_day_entry, String stu_semester, String stu_sex, String stu_dob, String stu_address, String aca_id, String class_id) {
+	    PreparedStatement pstmt = null;
+	    
+	    try {
+	        String sql = "EXEC insertStudent ?, ?, ?, ?, ?, ?, ?, ?, ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setString(1, stu_id);
+	        pstmt.setString(2, stu_name);
+	        pstmt.setString(3, stu_day_entry);
+	        pstmt.setString(4, stu_semester);
+	        pstmt.setString(5, stu_sex);
+	        pstmt.setString(6, stu_dob);
+	        pstmt.setString(7, stu_address);
+	        pstmt.setString(8, aca_id);
+	        pstmt.setString(9, class_id);
+
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (pstmt != null) pstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+}

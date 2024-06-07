@@ -1,0 +1,227 @@
+package FORM;
+
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+
+import BUS.TeacherBUS;
+import DAO.DataProvider;
+import DTO.TeacherDTO;
+
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class frmTeacher extends JInternalFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtTenGV;
+	private JTable tb_ListGV;
+	private JComboBox<String> cboGT;
+	private JComboBox<String> cboKhoa;
+	private TeacherBUS teacherBUS;
+	private JTextField txtMaGV;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					frmTeacher frame = new frmTeacher();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public frmTeacher() {
+		this.setTitle("Quản lý giảng viên");
+	    this.setSize(1000, 500);
+		DataProvider.getInstance().connectToDatabase();
+		this.teacherBUS=new TeacherBUS();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1011, 635);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(10, 10, 408, 267);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Họ tên:");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNewLabel.setBounds(24, 88, 79, 29);
+		panel.add(lblNewLabel);
+		
+		
+		
+		JLabel lblNewLabel_2 = new JLabel("Giới tính:");
+		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNewLabel_2.setBounds(24, 127, 79, 29);
+		panel.add(lblNewLabel_2);
+		
+		cboGT = new JComboBox<String>();
+		cboGT.setBounds(114, 132, 252, 21);
+		panel.add(cboGT);
+		
+		JLabel lblNewLabel_3 = new JLabel("Khoa:");
+		lblNewLabel_3.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(24, 166, 79, 29);
+		panel.add(lblNewLabel_3);
+		
+		cboKhoa = new JComboBox<String>();
+		cboKhoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String Khoa=getTextCboKhoa();
+				if(Khoa.equals("Tất cả"))
+				{
+					loadTb_ListGVAllTeacher();
+				}
+				else
+				{
+					String idKhoa=getIdKhoa();
+					loadTb_ListGTeacherByDepartID(idKhoa);
+				}
+			}
+		});
+		cboKhoa.setBounds(114, 171, 252, 21);
+		panel.add(cboKhoa);
+		
+		
+		JLabel lblNewLabel_4 = new JLabel("Nhập một giảng viên");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNewLabel_4.setBounds(97, 10, 228, 29);
+		panel.add(lblNewLabel_4);
+		
+		JButton btnThem = new JButton("Thêm");
+		btnThem.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnThem.setBounds(24, 216, 101, 29);
+		panel.add(btnThem);
+		
+		JButton btnSua = new JButton("Sửa");
+		btnSua.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnSua.setBounds(151, 216, 101, 29);
+		panel.add(btnSua);
+		
+		JButton btnXoa = new JButton("Xóa");
+		btnXoa.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnXoa.setBounds(278, 216, 101, 29);
+		panel.add(btnXoa);
+		
+		txtTenGV = new JTextField();
+		txtTenGV.setBounds(113, 94, 253, 19);
+		panel.add(txtTenGV);
+		txtTenGV.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Mã:");
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(24, 54, 79, 29);
+		panel.add(lblNewLabel_1);
+		
+		txtMaGV = new JTextField();
+		txtMaGV.setBounds(114, 59, 252, 19);
+		panel.add(txtMaGV);
+		txtMaGV.setColumns(10);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_1.setBounds(10, 287, 408, 301);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 10, 388, 291);
+		panel_1.add(scrollPane);
+		
+		tb_ListGV = new JTable();
+		tb_ListGV.setEnabled(false);
+		tb_ListGV.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Mã GV", "Họ Tên", "Giới Tính", "Ngành"
+			}
+		));
+		scrollPane.setViewportView(tb_ListGV);
+		
+		setCboKhoa();
+		setCboGT();
+		loadTb_ListGVAllTeacher();
+	}
+	
+	private String getIdKhoa()
+	{
+		String[] split=getTextCboKhoa().split("\\.");
+		return split[0];
+	}
+	
+	private String getTextCboKhoa()
+	{
+		return cboKhoa.getSelectedItem().toString();
+	}
+	
+	private void setCboKhoa()
+	{
+		 String[] classes = teacherBUS.takeInforDepart(); // Lấy danh sách các lớp từ StudentBUS
+		 cboKhoa.addItem("Tất cả");
+	     for (String className : classes) {
+	          cboKhoa.addItem(className); // Thêm tên lớp vào JComboBox
+	     }
+	}
+	
+	private void setCboGT()
+	{
+		 String[] classes = {"Nam","Nữ"}; // Lấy danh sách các lớp từ StudentBUS
+	     for (String className : classes) {
+	          cboGT.addItem(className); // Thêm tên lớp vào JComboBox
+	     }
+	}
+	
+	public void loadTb_ListGVAllTeacher()
+	{
+		List<TeacherDTO> teachers = teacherBUS.takeAllTeachers();
+        DefaultTableModel model = (DefaultTableModel) tb_ListGV.getModel();
+        model.setRowCount(0);
+        for (TeacherDTO teacher : teachers) {
+            model.addRow(new Object[]{teacher.getTeaId(), teacher.getTeaName(), teacher.getTeaSex(), teacher.getDepartId()});
+        }
+	}
+	
+	public void loadTb_ListGTeacherByDepartID(String depart_id)
+	{
+		List<TeacherDTO> teachers = teacherBUS.takeAllTeachersByDepartID(depart_id);
+        DefaultTableModel model = (DefaultTableModel) tb_ListGV.getModel();
+        model.setRowCount(0);
+        for (TeacherDTO teacher : teachers) {
+            model.addRow(new Object[]{teacher.getTeaId(), teacher.getTeaName(), teacher.getTeaSex(), teacher.getDepartId()});
+        }
+	}
+
+}
