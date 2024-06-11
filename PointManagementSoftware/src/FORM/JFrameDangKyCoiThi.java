@@ -17,8 +17,6 @@ import BUS.RegisExamBUS;
 import BUS.ResultsBUS;
 import BUS.SubjectsBUS;
 import BUS.TeachersBUS;
-import DTO.ExamSchedulesDTO;
-import DTO.ResultsDTO;
 import DTO.*;
 
 
@@ -34,6 +32,9 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextPane;
+import java.awt.FlowLayout;
+import javax.swing.border.TitledBorder;
+import javax.swing.JScrollPane;
 
 public class JFrameDangKyCoiThi extends JFrame {
 
@@ -96,95 +97,106 @@ public class JFrameDangKyCoiThi extends JFrame {
 		cbNamHoc = new JComboBox();
 		
 		
-		cbNamHoc.setBounds(106, 24, 114, 22);
+		cbNamHoc.setBounds(85, 24, 114, 22);
 		panel.add(cbNamHoc);
 		
 		JLabel lblNewLabel_1 = new JLabel("Học kỳ");
-		lblNewLabel_1.setBounds(374, 28, 49, 14);
+		lblNewLabel_1.setBounds(238, 28, 49, 14);
 		panel.add(lblNewLabel_1);
 		
 		cbHocKy = new JComboBox();
 		
-		cbHocKy.setBounds(472, 24, 139, 22);
+		cbHocKy.setBounds(297, 24, 193, 22);
 		panel.add(cbHocKy);
 		
 		JLabel lblNewLabel_2 = new JLabel("Lịch thi");
-		lblNewLabel_2.setBounds(26, 87, 49, 14);
+		lblNewLabel_2.setBounds(26, 74, 49, 14);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Giáo viên");
-		lblNewLabel_3.setBounds(272, 87, 49, 14);
+		lblNewLabel_3.setBounds(238, 74, 49, 14);
 		panel.add(lblNewLabel_3);
 		
 		cbGiaoVien = new JComboBox();
-		cbGiaoVien.setBounds(374, 83, 181, 22);
+		cbGiaoVien.setBounds(297, 70, 193, 22);
 		panel.add(cbGiaoVien);
 		
-		JButton btnDangKy = new JButton("Đăng ký coi thi");
+		JButton btnDangKy = new JButton("Cập nhật");
 		btnDangKy.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TeachersDTO teacher = (TeachersDTO) cbGiaoVien.getSelectedItem();
 				ExamSchedulesDTO exam = (ExamSchedulesDTO) cbLichThi.getSelectedItem();
 				
+				if(teacher == null || exam == null) {
+					JOptionPane.showMessageDialog(null, "Chưa chọn năm học và học kỳ!");
+					return;
+				}
+				
 				int check = regisBUS.RegisterExamSchedule(exam.getExam_id(), teacher.getTea_id());
 				if(check != -1) {
-					JOptionPane.showMessageDialog(null, "Dang ky coi thi thanh cong");
+					JOptionPane.showMessageDialog(null, "Cập nhật coi thi thành công");
 				} else {
-					JOptionPane.showMessageDialog(null, "Dang ky coi thi that bai");
+					JOptionPane.showMessageDialog(null, "Cập nhật coi thi thất bại! Giáo viên " + teacher.getTea_name() + " đã đăng ký lịch coi thi " + exam.getExam_id());
 				}
 
 				loadDataTableDanhSachDangKy();
 			}
 		});
 		
-		btnDangKy.setBounds(641, 83, 133, 23);
+		btnDangKy.setBounds(528, 70, 133, 23);
 		panel.add(btnDangKy);
 		
 		cbLichThi = new JComboBox();
 		
-		cbLichThi.setBounds(106, 83, 84, 22);
+		cbLichThi.setBounds(85, 70, 114, 22);
 		panel.add(cbLichThi);
 		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Th\u00F4ng tin l\u1ECBch thi", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(26, 109, 545, 98);
+		panel.add(panel_2);
+		panel_2.setLayout(null);
+		
 		JLabel lblNewLabel_4 = new JLabel("Thời gian bắt đầu");
-		lblNewLabel_4.setBounds(26, 126, 88, 14);
-		panel.add(lblNewLabel_4);
+		lblNewLabel_4.setBounds(10, 24, 129, 14);
+		panel_2.add(lblNewLabel_4);
 		
 		txtCa = new JTextField();
+		txtCa.setBounds(149, 21, 96, 20);
+		panel_2.add(txtCa);
 		txtCa.setEnabled(false);
-		txtCa.setBounds(124, 123, 103, 20);
-		panel.add(txtCa);
 		txtCa.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("Thời lượng");
-		lblNewLabel_5.setBounds(26, 152, 88, 14);
-		panel.add(lblNewLabel_5);
-		
-		txtThoiLuong = new JTextField();
-		txtThoiLuong.setEnabled(false);
-		txtThoiLuong.setBounds(134, 154, 96, 20);
-		panel.add(txtThoiLuong);
-		txtThoiLuong.setColumns(10);
-		
 		JLabel lblNewLabel_6 = new JLabel("Phòng");
-		lblNewLabel_6.setBounds(26, 193, 49, 14);
-		panel.add(lblNewLabel_6);
+		lblNewLabel_6.setBounds(10, 55, 49, 14);
+		panel_2.add(lblNewLabel_6);
 		
 		txtPhong = new JTextField();
+		txtPhong.setBounds(149, 52, 96, 20);
+		panel_2.add(txtPhong);
 		txtPhong.setEnabled(false);
-		txtPhong.setBounds(124, 190, 96, 20);
-		panel.add(txtPhong);
 		txtPhong.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Ngày thi");
-		lblNewLabel_7.setBounds(261, 136, 49, 14);
-		panel.add(lblNewLabel_7);
+		lblNewLabel_7.setBounds(270, 24, 49, 14);
+		panel_2.add(lblNewLabel_7);
 		
 		txtNgayThi = new JTextField();
+		txtNgayThi.setBounds(377, 21, 96, 20);
+		panel_2.add(txtNgayThi);
 		txtNgayThi.setEnabled(false);
-		txtNgayThi.setBounds(342, 133, 96, 20);
-		panel.add(txtNgayThi);
 		txtNgayThi.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Thời lượng");
+		lblNewLabel_5.setBounds(270, 55, 97, 14);
+		panel_2.add(lblNewLabel_5);
+		
+		txtThoiLuong = new JTextField();
+		txtThoiLuong.setBounds(377, 52, 96, 20);
+		panel_2.add(txtThoiLuong);
+		txtThoiLuong.setEnabled(false);
+		txtThoiLuong.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -192,9 +204,33 @@ public class JFrameDangKyCoiThi extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 39, 834, 175);
+		panel_1.add(scrollPane);
+		
 		tblLichThi = new JTable();
-		tblLichThi.setBounds(10, 11, 806, 229);
-		panel_1.add(tblLichThi);
+		scrollPane.setViewportView(tblLichThi);
+		
+		tblLichThi.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				if(!e.getValueIsAdjusting()) {
+					int selectedRow = tblLichThi.getSelectedRow();
+					if(selectedRow != -1) {
+						ExamSchedulesDTO exam = scheduleBUS.getExamScheduleById(tblLichThi.getValueAt(selectedRow, 0).toString());
+						if(exam == null) {
+							return;
+						}
+						txtCa.setText(exam.getExam_start());
+						txtNgayThi.setText(exam.getExam_date().toString());
+						txtPhong.setText(exam.getRoom_id());
+						txtThoiLuong.setText(exam.getExam_time());
+					}
+				}
+			}
+		});
 		
 		init();
 		cbHocKy.addActionListener(new ActionListener() {
@@ -208,24 +244,12 @@ public class JFrameDangKyCoiThi extends JFrame {
 			}
 		});
 		
-		tblLichThi.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				// TODO Auto-generated method stub
-				if(!e.getValueIsAdjusting()) {
-					int selectedRow = tblLichThi.getSelectedRow();
-					if(selectedRow != -1) {
-						
-					}
-				}
-			}
-		});
-		
 		cbLichThi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ExamSchedulesDTO exam = (ExamSchedulesDTO) cbLichThi.getSelectedItem();
-				
+				if(exam == null) {
+					return;
+				}
 				txtCa.setText(exam.getExam_start());
 				txtNgayThi.setText(exam.getExam_date().toString());
 				txtPhong.setText(exam.getRoom_id());
@@ -240,9 +264,24 @@ public class JFrameDangKyCoiThi extends JFrame {
 		loadDataGiaoVien();
 		lstSchedule = scheduleBUS.getAll();
 		
-		for (ExamSchedulesDTO schedule : lstSchedule) {
-			cbHocKy.addItem(schedule.getSemester());
-			cbNamHoc.addItem(schedule.getExam_year());
+		List<String> dataHocKy = new ArrayList<>();
+		List<String> dataNamHoc = new ArrayList<>();
+		for(ExamSchedulesDTO exam : lstSchedule) {
+			if(!dataHocKy.contains(exam.getSemester())) {
+				dataHocKy.add(exam.getSemester());
+			}
+			
+			if(!dataNamHoc.contains(exam.getExam_year())) {
+				dataNamHoc.add(exam.getExam_year());
+			}
+		}
+		
+		for(String hocKy : dataHocKy) {
+			cbHocKy.addItem(hocKy);
+		}
+		
+		for(String namHoc : dataNamHoc) {
+			cbNamHoc.addItem(namHoc);
 		}
 		
 		loadDataTableDanhSachDangKy();
@@ -258,16 +297,6 @@ public class JFrameDangKyCoiThi extends JFrame {
 	}
 
 	private void loadColumnLichThi() {
-		// TODO Auto-generated method stub
-//		modelDanhSachLichThi.addColumn("Mã lịch thi");
-//		modelDanhSachLichThi.addColumn("Học kỳ");
-//		modelDanhSachLichThi.addColumn("Phòng thi");
-//		modelDanhSachLichThi.addColumn("Thời gian bắt đầu");
-//		modelDanhSachLichThi.addColumn("Thời lượng thi");
-//		modelDanhSachLichThi.addColumn("Ngày thi");
-//		modelDanhSachLichThi.addColumn("Niên khóa");
-		
-
 		modelDanhSachLichThi.addColumn("Lịch thi");
 		modelDanhSachLichThi.addColumn("Giảng viên");
 	}
@@ -279,6 +308,7 @@ public class JFrameDangKyCoiThi extends JFrame {
 	}
 
 	void loadDataLichThi(String semester, String year) {
+		cbLichThi.removeAllItems();
 		List<ExamSchedulesDTO> lstExams = scheduleBUS.getExamSchedulesBySemesterAndYear(semester, year);
 		for(ExamSchedulesDTO exam : lstExams) {
 			cbLichThi.addItem(exam);
@@ -286,7 +316,6 @@ public class JFrameDangKyCoiThi extends JFrame {
 	}
 	private void loadDataTableDanhSachDangKy() {
 		// TODO Auto-generated method stub
-//		lstSchedule.clear();
 		modelDanhSachLichThi.setRowCount(0);
 		
 		List<RegisExamDTO> lstRegis = regisBUS.getAll();
