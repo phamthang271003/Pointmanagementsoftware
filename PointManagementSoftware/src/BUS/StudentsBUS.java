@@ -3,6 +3,7 @@ package BUS;
 import DAO.StudentDAO;
 import DTO.StudentsDTO;
 //import DTO.StudyRecordDTO;
+import DTO.StudyRecordDTO;
 
 import java.util.ArrayList;
 
@@ -59,12 +60,12 @@ public class StudentsBUS {
                         return null;
                 }
         }
-//        public ArrayList<StudyRecordDTO> getStudyRecords(String stuId) {
-//                try {
-//                        return studentsDAO.getStudyRecords(stuId);
-//                } catch (Exception e) {
-//                        e.printStackTrace();
-//                        return null;
-//                }
-//        }
+        public ArrayList<StudyRecordDTO> getStudyRecords(String stuId) {
+                try {
+                        return studentsDAO.getStudyRecords(stuId);
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                }
+        }
 }

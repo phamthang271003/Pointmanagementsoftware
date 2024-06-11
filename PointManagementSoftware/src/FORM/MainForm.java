@@ -133,6 +133,7 @@ public class MainForm extends JFrame {
 		menuBar.add(mnChucNang);
 
 		chkPCCoiThi = new JCheckBoxMenuItem("Phân công coi thi");
+		
 		mnChucNang.add(chkPCCoiThi);
 
 		chkDkCoiThi = new JCheckBoxMenuItem("Đăng ký coi thi");
@@ -142,6 +143,7 @@ public class MainForm extends JFrame {
 		mnChucNang.add(chkPhanCongChamThi);
 
 		chkNhapDiem = new JCheckBoxMenuItem("Nhập điểm");
+		
 		mnChucNang.add(chkNhapDiem);
 
 		chkLapLichThi = new JCheckBoxMenuItem("Lập lịch thi");
@@ -277,6 +279,41 @@ public class MainForm extends JFrame {
 				
 			}
 		});		
+		chkPCCoiThi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentCheckbox != null) {
+					currentCheckbox.setSelected(false);
+				}
+				currentCheckbox = chkKhoa;
+				JFrameDangKyCoiThi rf = new JFrameDangKyCoiThi();
+				desktopPane.add(rf);
+				rf.setVisible(true);
+			}
+		});
+		chkNhapDiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentCheckbox != null) {
+					currentCheckbox.setSelected(false);
+				}
+				currentCheckbox = chkKhoa;
+				JFrameNhapDiem rf = new JFrameNhapDiem();
+				desktopPane.add(rf);
+				rf.setVisible(true);
+			
+			}
+		});
+		chkHocBa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentCheckbox != null) {
+					currentCheckbox.setSelected(false);
+				}
+				currentCheckbox = chkKhoa;
+				StudyRecordsGUI rf = new StudyRecordsGUI();
+				desktopPane.add(rf);
+				rf.setVisible(true);
+			
+			}
+		});
 	}
 
 }

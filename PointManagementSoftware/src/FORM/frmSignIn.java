@@ -25,9 +25,7 @@ public class frmSignIn extends JFrame {
 	private JTextField txtMK;
 	private SignInBUS signInBUS;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -43,9 +41,6 @@ public class frmSignIn extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public frmSignIn() {
 		DataProvider.getInstance().connectToDatabase();
 		this.signInBUS=new SignInBUS();
