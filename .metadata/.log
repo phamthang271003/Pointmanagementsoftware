@@ -13900,3 +13900,66 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.lsp4e 1 0 2024-06-11 18:19:29.672
 !MESSAGE [Info]	Registering request handler for workspace/didChangeWorkspaceFolders failed.
+
+!ENTRY com.genuitec.copilot4eclipse 4 0 2024-06-11 18:24:08.181
+!MESSAGE Request checkStatus failed with message: Stream closed with error code NGHTTP2_REFUSED_STREAM
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:26:36.078
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:27:05.858
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:27:08.115
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:27:20.944
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:27:25.107
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:27:27.760
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:27:31.035
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:27:45.770
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:27:51.770
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 18:28:14.858
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-06-11 18:47:03.568
+!MESSAGE [Info]	Registering request handler for workspace/didChangeWorkspaceFolders failed.
+
+!ENTRY com.genuitec.copilot4eclipse 4 0 2024-06-11 18:51:53.552
+!MESSAGE Request checkStatus failed with message: Stream closed with error code NGHTTP2_REFUSED_STREAM
+
+!ENTRY com.genuitec.copilot4eclipse 4 0 2024-06-11 18:59:00.111
+!MESSAGE Request checkStatus failed with message: Stream closed with error code NGHTTP2_REFUSED_STREAM
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 19:13:34.698
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 4 0 2024-06-11 19:27:25.422
+!MESSAGE Request checkStatus failed with message: Stream closed with error code NGHTTP2_REFUSED_STREAM
+
+!ENTRY com.genuitec.copilot4eclipse 4 0 2024-06-11 19:33:00.490
+!MESSAGE Request checkStatus failed with message: Stream closed with error code NGHTTP2_REFUSED_STREAM
+
+!ENTRY com.genuitec.copilot4eclipse 4 0 2024-06-11 19:35:02.662
+!MESSAGE Request checkStatus failed with message: Stream closed with error code NGHTTP2_REFUSED_STREAM
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 19:37:52.339
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 19:38:36.435
+!MESSAGE Not authenticated: NotSignedIn
+
+!ENTRY com.genuitec.copilot4eclipse 2 0 2024-06-11 19:38:37.195
+!MESSAGE Not authenticated: NotSignedIn

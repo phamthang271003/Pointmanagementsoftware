@@ -147,6 +147,7 @@ public class MainForm extends JFrame {
 		mnChucNang.add(chkNhapDiem);
 
 		chkLapLichThi = new JCheckBoxMenuItem("Lập lịch thi");
+		
 		mnChucNang.add(chkLapLichThi);
 
 		chkLapLichThiTN = new JCheckBoxMenuItem("Lập lịch thi tốt nghiệp");
@@ -311,7 +312,18 @@ public class MainForm extends JFrame {
 				StudyRecordsGUI rf = new StudyRecordsGUI();
 				desktopPane.add(rf);
 				rf.setVisible(true);
-			
+				
+			}
+		});
+		chkLapLichThi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentCheckbox != null) {
+					currentCheckbox.setSelected(false);
+				}
+				currentCheckbox = chkLapLichThi;
+				JFrameLapLichThi rf = new JFrameLapLichThi();
+				desktopPane.add(rf);
+				rf.setVisible(true);
 			}
 		});
 	}
