@@ -92,4 +92,27 @@ public class ExamSchedulesDAO {
 		}
 		return lstSchedule;
 	}
+	public int create(ExamSchedulesDTO e) {
+	    int check = 0;
+	    try {
+	     
+	        String sql = "{call DangKyLichThi(?, ?, ?, ?, ?, ?, ?)}";
+	        CallableStatement callStmt = conn.prepareCall(sql);
+	        
+	        // Set the parameters for the stored procedure
+	        callStmt.setString(1, e.getExam_id());
+	        callStmt.setString(2, e.getSemester());
+	        callStmt.setString(3, e.getRoom_id());
+	        callStmt.setString(4, e.getExam_start());
+	        callStmt.setString(5, e.getExam_time());
+	        callStmt.setDate(6, e.getExam_date());
+	        callStmt.setString(7, e.getExam_year());
+	        
+	        // Execute the stored procedure
+	        check = callStmt.executeUpdate();
+	    } catch (SQLException ex) {
+	        ex.printStackTrace();
+	    }
+	    return check;
+	}
 }
