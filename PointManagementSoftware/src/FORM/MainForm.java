@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import DAO.DataProvider;
 
 import javax.swing.JMenuBar;
 import javax.swing.JDesktopPane;
@@ -66,6 +65,8 @@ public class MainForm extends JFrame {
 	private JCheckBoxMenuItem chkNhapDiem;
 	private JCheckBoxMenuItem chkDkCoiThi;
 	private JCheckBoxMenuItem chkPCCoiThi;
+	private JCheckBoxMenuItem chkThemMHSV;
+	private JCheckBoxMenuItem currentCheckbox;
 
 	private JMenu mnHeThong;
 
@@ -73,8 +74,6 @@ public class MainForm extends JFrame {
 
 	public MainForm() {
 		this.init();
-		DataProvider.getInstance().connectToDatabase();
-		
 	}
 
 	public void init() {
@@ -114,9 +113,11 @@ public class MainForm extends JFrame {
 		mnQuanLy.add(chkKhoa);
 
 		chkNganh = new JCheckBoxMenuItem("Quản lý ngành");
+		
 		mnQuanLy.add(chkNganh);
 
 		chkMonHoc = new JCheckBoxMenuItem("Quản lý môn học");
+		
 		mnQuanLy.add(chkMonHoc);
 
 		chkLop = new JCheckBoxMenuItem("Quản lý lớp");
@@ -142,6 +143,10 @@ public class MainForm extends JFrame {
 
 		chkLapLichThiTN = new JCheckBoxMenuItem("Lập lịch thi tốt nghiệp");
 		mnChucNang.add(chkLapLichThiTN);
+		
+		chkThemMHSV = new JCheckBoxMenuItem("Thêm môn học cho sinh viên");
+		
+		mnChucNang.add(chkThemMHSV);
 
 		mnThongKe = new JMenu("Thống kê & In ấn");
 		menuBar.add(mnThongKe);
@@ -154,16 +159,51 @@ public class MainForm extends JFrame {
 
 		desktopPane = new JDesktopPane();
 		getContentPane().add(desktopPane);
-		
-		chkLop.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	System.out.println("Bạn đã nhấn nút quản lý lớp");
-            	ClassesForm cf = new ClassesForm();
-            	desktopPane.add(cf);
-            	cf.setVisible(true);
-            }
-        });
+
+		chkKhoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentCheckbox != null) {
+					currentCheckbox.setSelected(false);
+				}
+				currentCheckbox = chkKhoa;
+				DepartmentForm df = new DepartmentForm();
+				desktopPane.add(df);
+				df.setVisible(true);
+			}
+		});
+		chkNganh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentCheckbox != null) {
+					currentCheckbox.setSelected(false);
+				}
+				currentCheckbox = chkKhoa;
+				AcademicForm af = new AcademicForm();
+				desktopPane.add(af);
+				af.setVisible(true);
+			}
+		});
+		chkMonHoc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentCheckbox != null) {
+					currentCheckbox.setSelected(false);
+				}
+				currentCheckbox = chkKhoa;
+				SubjectForm sf = new SubjectForm();
+				desktopPane.add(sf);
+				sf.setVisible(true);
+			}
+		});
+		chkThemMHSV.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentCheckbox != null) {
+					currentCheckbox.setSelected(false);
+				}
+				currentCheckbox = chkKhoa;
+				ResultForm rf = new ResultForm();
+				desktopPane.add(rf);
+				rf.setVisible(true);
+			}
+		});
 	}
-	
 
 }
