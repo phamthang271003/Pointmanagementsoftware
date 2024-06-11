@@ -16,7 +16,6 @@
     <fullyQualifiedTypeName name="FORM.ClassesForm"/>
     <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
     <fullyQualifiedTypeName name="BUS.DepartmentBUS"/>
-    <fullyQualifiedTypeName name="java.sql.CallableStatement"/>
     <fullyQualifiedTypeName name="FORM.DepartmentForm"/>
     <fullyQualifiedTypeName name="java.sql.Types"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
@@ -43,4 +42,10 @@
     <fullyQualifiedTypeName name="java.lang.System.Logger.Level"/>
     <fullyQualifiedTypeName name="java.util.logging.Level"/>
     <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="FORM.frmTeacher"/>
+    <fullyQualifiedTypeName name="DTO.StudentsDTO"/>
+    <fullyQualifiedTypeName name="java.sql.CallableStatement"/>
+    <fullyQualifiedTypeName name="FORM.frmStudents"/>
+    <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+    <fullyQualifiedTypeName name="GUI.StudentsGUI"/>
 </qualifiedTypeNameHistroy>

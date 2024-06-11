@@ -101,6 +101,27 @@ public class AcademicDAO {
             throw e;
         }
     }
+    public ArrayList<AcademicDTO> getAcademicByDepartment(String departmentID) {
+        ArrayList<AcademicDTO> academic = new ArrayList<>();
+        try {
+                MysqlAccess helper = new MysqlAccess();
+                helper.open();
+                CallableStatement stmt = helper.getConnection().prepareCall("{call sp_getAcademicByDepartment(?)}");
+                stmt.setString(1, departmentID);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                        AcademicDTO aca = new AcademicDTO();
+                        aca.setAca_id(rs.getString("aca_id"));
+                        aca.setAca_name(rs.getString("aca_name"));
+                        academic.add(aca);
+                }
+                helper.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+
+        return academic;
+}
 
   
 

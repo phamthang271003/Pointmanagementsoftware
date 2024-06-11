@@ -62,4 +62,16 @@ public class SubjectBUS {
 	            LOGGER.log(Level.SEVERE, "Lỗi cập nhật môn học", e);
 	        }
 	    }
+	    public ArrayList<SubjectDTO> getSubjectsByAcademic(String academicID) {
+
+	                    ArrayList<SubjectDTO> subjectList = new ArrayList<>();
+	                    try{
+	                            subjectList = subjectDAO.getSubjectsByAcademic(academicID);
+	                    } catch (Exception e) {
+	                            e.printStackTrace();
+	                    }
+	                    return subjectList;
+	            }
+	    
+	    
 }

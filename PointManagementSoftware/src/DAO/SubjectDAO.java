@@ -87,5 +87,26 @@ public class SubjectDAO {
             throw e;
         }
     }
+    public ArrayList<SubjectDTO> getSubjectsByAcademic(String academicID) {
+        ArrayList<SubjectDTO> list = new ArrayList<>();
+        try {
+                MysqlAccess helper = new MysqlAccess();
+                helper.open();
+                CallableStatement stmt = helper.getConnection().prepareCall("{call sp_getSubjectToAcac(?)}");
+                stmt.setString(1, academicID);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                        SubjectDTO subject = new SubjectDTO();
+                        subject.setSub_id(academicID);
+                        subject.setSub_name(academicID);
+                        list.add(subject);
+                }
+                helper.close();
+        } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+        }
+        return list;
+}
+    
 
 }
