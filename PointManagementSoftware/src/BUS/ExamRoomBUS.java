@@ -1,54 +1,81 @@
 package BUS;
+
 import DAO.ExamRoomDAO;
 import DTO.AcademicDTO;
 import DTO.ExamRoomDTO;
 
 import java.util.ArrayList;
 
+
+      
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import DAO.ClassesDAO;
+import DAO.ExamRoomDAO;
+import DTO.ClassesDTO;
+import DTO.ExamRoomDTO;
+
 public class ExamRoomBUS {
 
-        private ExamRoomDAO examRoomDAO;
-        public ExamRoomBUS() {
-                examRoomDAO = new ExamRoomDAO();
-        }
-        public ArrayList<ExamRoomDTO> getAllExamRoom() {
+	private ExamRoomDAO examRoomDAO;
 
-                ArrayList<ExamRoomDTO> examRoomList = new ArrayList<>();
-                try{
-                        examRoomList = examRoomDAO.menuExamRoom();
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
-                return examRoomList;
-        }
-        public boolean addExamRoom(ExamRoomDTO examRoom) {
-                try {
-                        if (examRoomDAO.isExamRoomIdExist(examRoom.getRoomID())) {
-                                return false;
-                        }
-                        else {
-                                return examRoomDAO.addExamRoom(examRoom);
-                        }
-                } catch (Exception e) {
-                        e.printStackTrace();
-                        return false;
-                }
-        }
+	public ExamRoomBUS() {
+		examRoomDAO = new ExamRoomDAO();
+		
+	}
+	public List<ExamRoomDTO> getAll()
+	{
+		List<ExamRoomDTO> lst = new ArrayList<ExamRoomDTO>();
+		try {
+			lst = examRoomDAO.getAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lst;
+	}
+	  public ArrayList<ExamRoomDTO> getAllExamRoom() {
 
-        public boolean updateExamRoom(ExamRoomDTO examRoom) {
-                try {
-                        return examRoomDAO.updateExamRoom(examRoom);
-                } catch (Exception e) {
-                        e.printStackTrace();
-                        return false;
-                }
-        }
-        public boolean deleteExamRoom(String roomID) {
-                try {
-                        return examRoomDAO.deleteExamRoom(roomID);
-                } catch (Exception e) {
-                        e.printStackTrace();
-                        return false;
-                }
-        }
+          ArrayList<ExamRoomDTO> examRoomList = new ArrayList<>();
+          try{
+                  examRoomList = examRoomDAO.menuExamRoom();
+          } catch (Exception e) {
+                  e.printStackTrace();
+          }
+          return examRoomList;
+  }
+  public boolean addExamRoom(ExamRoomDTO examRoom) {
+          try {
+                  if (examRoomDAO.isExamRoomIdExist(examRoom.getRoomID())) {
+                          return false;
+                  }
+                  else {
+                          return examRoomDAO.addExamRoom(examRoom);
+                  }
+          } catch (Exception e) {
+                  e.printStackTrace();
+                  return false;
+          }
+  }
+
+  public boolean updateExamRoom(ExamRoomDTO examRoom) {
+          try {
+                  return examRoomDAO.updateExamRoom(examRoom);
+          } catch (Exception e) {
+                  e.printStackTrace();
+                  return false;
+          }
+  }
+  public boolean deleteExamRoom(String roomID) {
+          try {
+                  return examRoomDAO.deleteExamRoom(roomID);
+          } catch (Exception e) {
+                  e.printStackTrace();
+                  return false;
+          }
+  }
+
+
 }

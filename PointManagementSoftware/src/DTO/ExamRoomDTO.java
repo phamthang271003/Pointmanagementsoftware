@@ -1,6 +1,7 @@
 package DTO;
 
 public class ExamRoomDTO {
+
         private String roomID;
         private String roomName;
         private int quantity;
@@ -37,4 +38,10 @@ public class ExamRoomDTO {
 
         public ExamRoomDTO() {
         }
+        
+	@Override
+	public String toString() {
+		return getRoomName();
+	}
+	
 }

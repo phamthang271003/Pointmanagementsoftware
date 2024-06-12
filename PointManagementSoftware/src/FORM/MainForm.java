@@ -185,7 +185,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkNganh;
 				AcademicForm af = new AcademicForm();
 				desktopPane.add(af);
 				af.setVisible(true);
@@ -196,7 +196,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkMonHoc;
 				SubjectForm sf = new SubjectForm();
 				desktopPane.add(sf);
 				sf.setVisible(true);
@@ -207,7 +207,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkThemMHSV;
 				ResultForm rf = new ResultForm();
 				desktopPane.add(rf);
 				rf.setVisible(true);
@@ -218,7 +218,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkGiangVien;
 				frmTeacher tf = new frmTeacher();
 				desktopPane.add(tf);
 				tf.setVisible(true);
@@ -231,7 +231,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkSinhVien;
 				StudentsGUI rf = new StudentsGUI();
 				desktopPane.add(rf);
 				rf.setVisible(true);
@@ -245,7 +245,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkLop;
 				ClassesGUI rf = new ClassesGUI();
 				desktopPane.add(rf);
 				rf.setVisible(true);
@@ -259,7 +259,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkPhongThi;
 				ExamRoomGUI rf = new ExamRoomGUI();
 				desktopPane.add(rf);
 				rf.setVisible(true);
@@ -273,7 +273,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkPhanCongChamThi;
 				Assigning_examGUI rf = new Assigning_examGUI();
 				desktopPane.add(rf);
 				rf.setVisible(true);
@@ -285,7 +285,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkPCCoiThi;
 				JFrameDangKyCoiThi rf = new JFrameDangKyCoiThi();
 				desktopPane.add(rf);
 				rf.setVisible(true);
@@ -296,7 +296,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkNhapDiem;
 				JFrameNhapDiem rf = new JFrameNhapDiem();
 				desktopPane.add(rf);
 				rf.setVisible(true);
@@ -308,7 +308,7 @@ public class MainForm extends JFrame {
 				if (currentCheckbox != null) {
 					currentCheckbox.setSelected(false);
 				}
-				currentCheckbox = chkKhoa;
+				currentCheckbox = chkHocBa;
 				StudyRecordsGUI rf = new StudyRecordsGUI();
 				desktopPane.add(rf);
 				rf.setVisible(true);

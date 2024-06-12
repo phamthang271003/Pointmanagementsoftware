@@ -39,7 +39,6 @@ public class SubjectsDTO {
 	}
 	@Override
 	public String toString() {
-		return "SubjectsDTO [sub_id=" + sub_id + ", sub_name=" + sub_name + ", sub_semester=" + sub_semester
-				+ ", sub_year=" + sub_year + "]";
+		return getSub_name();
 	}
 }

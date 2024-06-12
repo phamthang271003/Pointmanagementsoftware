@@ -48,11 +48,11 @@ public class ExamSchedulesDTO {
 	public void setExam_date(Date exam_date) {
 		this.exam_date = exam_date;
 	}
-	public ExamSchedulesDTO(String exam_id, String semester, String exam_start, String exam_time, String exam_year,
-			Date exam_date) {
+	public ExamSchedulesDTO(String exam_id, String semester, String room_id, String exam_start, String exam_time, String exam_year,Date exam_date) {
 		super();
 		this.exam_id = exam_id;
 		this.semester = semester;
+		this.room_id =  room_id;
 		this.exam_start = exam_start;
 		this.exam_time = exam_time;
 		this.exam_year = exam_year;

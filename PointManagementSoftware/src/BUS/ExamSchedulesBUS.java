@@ -26,4 +26,8 @@ public class ExamSchedulesBUS {
 	public List<ExamSchedulesDTO> getAll(){
 		return examSchedulesDAO.getAll();
 	}
+	public int create(ExamSchedulesDTO e)
+	{
+		return examSchedulesDAO.create(e);
+	}
 }

@@ -53,8 +53,8 @@
     <fullyQualifiedTypeName name="DTO.ComboItem"/>
     <fullyQualifiedTypeName name="FORM.JFrameDangKyCoiThi"/>
     <fullyQualifiedTypeName name="FORM.JFrameNhapDiem"/>
-    <fullyQualifiedTypeName name="javax.swing.JInternalFrame"/>
     <fullyQualifiedTypeName name="DTO.StudyRecordDTO"/>
     <fullyQualifiedTypeName name="FORM.StudyRecordFrame"/>
     <fullyQualifiedTypeName name="FORM.StudyRecordsGUI"/>
+    <fullyQualifiedTypeName name="javax.swing.JInternalFrame"/>
 </qualifiedTypeNameHistroy>
