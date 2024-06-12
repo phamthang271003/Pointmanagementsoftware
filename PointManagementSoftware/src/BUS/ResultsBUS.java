@@ -17,7 +17,7 @@ public class ResultsBUS {
 		return resultDAO.getListStudentBySubject(subId);
 	}
 	
-	public int updateScore(String stuId, String subId, float diem1, float diem2, float diemTB) {
-		return resultDAO.updateScore(stuId, subId, diem1, diem2, diemTB);
+	public int updateScore(String stuId, String subId, float diem1, float diem2) {
+		return resultDAO.updateScore(stuId, subId, diem1, diem2);
 	}
 }

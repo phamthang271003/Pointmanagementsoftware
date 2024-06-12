@@ -3,7 +3,7 @@ package DAO;
 import java.sql.*;
 
 public class MysqlAccess {
-        String strServer = "LAPTOP-5KVBJE6O\\\\SQLEXPRESS";
+        String strServer = "DESKTOP-MIJIJRH";
         String strDatbaseName = "db_QLDiemSV";
         private Connection connection;
         public Connection getConnection() {

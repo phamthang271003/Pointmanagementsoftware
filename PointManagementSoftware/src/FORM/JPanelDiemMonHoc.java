@@ -39,6 +39,7 @@ public class JPanelDiemMonHoc extends JPanel {
 	private JComboBox cbNamHoc;
 	private JComboBox cbMon;
 	
+	private StudentsBUS stuBus = new StudentsBUS();
 	private SubjectsBUS subjectBus = new SubjectsBUS();
 	private ResultsBUS resultBus = new ResultsBUS();
 	private List<SubjectsDTO> lstMonHoc = new ArrayList<>();
@@ -121,7 +122,7 @@ public class JPanelDiemMonHoc extends JPanel {
 						JOptionPane.showMessageDialog(null, "Điểm thi 2 không hợp lệ");
 						return;
 					}
-					diemTB = Float.parseFloat(txtDiemTrungBinh.getText());
+//					diemTB = Float.parseFloat(txtDiemTrungBinh.getText());
 				} catch (Exception e2) {
 					// TODO: handle exception
 					JOptionPane.showMessageDialog(null, "Vui lòng nhập đúng điểm!");
@@ -133,12 +134,16 @@ public class JPanelDiemMonHoc extends JPanel {
 					return;
 				}
 				
-				int check = resultBus.updateScore(maSV, monHoc.getSub_id(), diemLan1, diemLan2, diemTB);
+				int check = resultBus.updateScore(maSV, monHoc.getSub_id(), diemLan1, diemLan2);
 				if(check != -1) {
 					loadDataTableResult(monHoc.getSub_id());
 					JOptionPane.showMessageDialog(null, "Cap nhat diem thanh cong");
 				}
 				loadDataTableResult(monHoc.getSub_id());
+				txtCKLan1.setText("");
+				txtCKLan2.setText("");
+				txtDiemTrungBinh.setText("");
+				txtMaSoSinhVien.setText("");
 			}
 		});
 		btnCapNhat.setBounds(561, 97, 108, 23);
@@ -209,9 +214,9 @@ public class JPanelDiemMonHoc extends JPanel {
 					int selectedRow = tblDanhSachDiemMonHoc.getSelectedRow();
 					if(selectedRow != -1) {
 						String masv = tblDanhSachDiemMonHoc.getValueAt(selectedRow, 0).toString();
-						float diemLan1 = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 1).toString());
-						float diemLan2 = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 2).toString());
-						float diemTB = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 3).toString());
+						float diemLan1 = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 2).toString());
+						float diemLan2 = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 3).toString());
+						float diemTB = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 4).toString());
 						
 						txtCKLan1.setText(String.valueOf(diemLan1));
 						txtCKLan2.setText(String.valueOf(diemLan2));
@@ -237,23 +242,18 @@ public class JPanelDiemMonHoc extends JPanel {
 		});
 		
 		modelDanhSachKetQua.addColumn("Mã sinh viên");
+		modelDanhSachKetQua.addColumn("Tên sinh viên");
 		modelDanhSachKetQua.addColumn("Điểm thi");
 		modelDanhSachKetQua.addColumn("Điểm thi lần 2");
 		modelDanhSachKetQua.addColumn("Điểm trung bình");
 		
 		cbMon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				modelDanhSachKetQua.setRowCount(0);
 				SubjectsDTO subject = (SubjectsDTO) cbMon.getSelectedItem();
 				if(subject == null) {
 					return;
 				}
-				lstResult = resultBus.getListStudentBySubject(subject.getSub_id());
-
-				for(ResultsDTO result : lstResult) {
-					modelDanhSachKetQua.addRow(new Object[] {result.getStu_id(), result.getRes_score(), result.getRes_score_2(), result.getAvg_score()});
-				}
-				tblDanhSachDiemMonHoc.setModel(modelDanhSachKetQua);
+				loadDataTableResult(subject.getSub_id());
 			}
 		});
 	}
@@ -294,6 +294,7 @@ public class JPanelDiemMonHoc extends JPanel {
 		try {
 			String hocKy = cbHocKi.getSelectedItem().toString();
 			int namHoc = Integer.parseInt(cbNamHoc.getSelectedItem().toString());
+			
 			lstMonHoc = subjectBus.showListSubjectsBySemesterAndYear(hocKy, namHoc);
 			
 			for(SubjectsDTO subject : lstMonHoc) {
@@ -309,8 +310,8 @@ public class JPanelDiemMonHoc extends JPanel {
 		lstResult = resultBus.getListStudentBySubject(subId);
 
 		for(ResultsDTO result : lstResult) {
-			
-			modelDanhSachKetQua.addRow(new Object[] {result.getStu_id(), result.getRes_score(), result.getRes_score_2(), result.getRes_time(), result.getAvg_score()});
+			StudentsDTO student = stuBus.getStudentById(result.getStu_id());
+			modelDanhSachKetQua.addRow(new Object[] {result.getStu_id(), student.getStu_name(), result.getRes_score(), result.getRes_score_2(), result.getAvg_score()});
 		}
 		tblDanhSachDiemMonHoc.setModel(modelDanhSachKetQua);
 	}
