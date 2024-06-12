@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import DTO.UserLogin;
 import FORM.StudentsGUI;
 import FORM.Assigning_examGUI;
 
@@ -58,8 +59,6 @@ public class MainForm extends JFrame {
 
 	private JCheckBoxMenuItem chkDangXuat;
 	private JCheckBoxMenuItem chkUser;
-
-	private JCheckBoxMenuItem chkDangNhap;
 	private JCheckBoxMenuItem chkLapLichThiTN;
 	private JCheckBoxMenuItem chkHocBa;
 	private JCheckBoxMenuItem chkDanhSachPhongThi;
@@ -84,14 +83,22 @@ public class MainForm extends JFrame {
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		System.out.println(UserLogin.user + " user");
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
+		//Menu
 		mnHeThong = new JMenu("Hệ thống");
 		menuBar.add(mnHeThong);
+		
+		mnQuanLy = new JMenu("Danh mục");
+		menuBar.add(mnQuanLy);
 
-		chkDangNhap = new JCheckBoxMenuItem("Đăng nhập");
-		mnHeThong.add(chkDangNhap);
+		mnChucNang = new JMenu("Chức năng");
+		menuBar.add(mnChucNang);
+
+		mnThongKe = new JMenu("Thống kê & In ấn");
+		menuBar.add(mnThongKe);
 
 		chkDangXuat = new JCheckBoxMenuItem("Đăng xuất");
 		mnHeThong.add(chkDangXuat);
@@ -100,10 +107,8 @@ public class MainForm extends JFrame {
 		mnHeThong.add(chkUser);
 
 		chkThoat = new JCheckBoxMenuItem("Thoát");
+		
 		mnHeThong.add(chkThoat);
-
-		mnQuanLy = new JMenu("Danh mục");
-		menuBar.add(mnQuanLy);
 
 		chkGiangVien = new JCheckBoxMenuItem("Quản lý giảng viên");
 		
@@ -128,9 +133,6 @@ public class MainForm extends JFrame {
 
 		chkPhongThi = new JCheckBoxMenuItem("Quản lý phòng thi");
 		mnQuanLy.add(chkPhongThi);
-
-		mnChucNang = new JMenu("Chức năng");
-		menuBar.add(mnChucNang);
 
 		chkPCCoiThi = new JCheckBoxMenuItem("Phân công coi thi");
 		
@@ -158,9 +160,6 @@ public class MainForm extends JFrame {
 		
 		mnChucNang.add(chkThemMHSV);
 
-		mnThongKe = new JMenu("Thống kê & In ấn");
-		menuBar.add(mnThongKe);
-
 		chkDanhSachPhongThi = new JCheckBoxMenuItem("Danh sách sinh viên phòng thi");
 		mnThongKe.add(chkDanhSachPhongThi);
 
@@ -169,7 +168,26 @@ public class MainForm extends JFrame {
 
 		desktopPane = new JDesktopPane();
 		getContentPane().add(desktopPane);
+		
+		if(UserLogin.user.equals("Admin")) {
+			chkNhapDiem.setVisible(false);
+			chkDkCoiThi.setVisible(false);
+		} else {
+			mnQuanLy.setVisible(false);
+			mnThongKe.setVisible(false);
+			chkPCCoiThi.setVisible(false);
+			chkLapLichThi.setVisible(false);
+			chkLapLichThiTN.setVisible(false);
+			chkThemMHSV.setVisible(false);
+			chkPhanCongChamThi.setVisible(false);
+		}
 
+		chkThoat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
 		chkKhoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (currentCheckbox != null) {
@@ -181,6 +199,7 @@ public class MainForm extends JFrame {
 				df.setVisible(true);
 			}
 		});
+		
 		chkNganh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (currentCheckbox != null) {

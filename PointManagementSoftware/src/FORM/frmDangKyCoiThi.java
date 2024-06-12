@@ -29,9 +29,12 @@ import javax.swing.table.DefaultTableModel;
 import BUS.ExamSchedulesBUS;
 import BUS.RegisExamBUS;
 import BUS.TeachersBUS;
+import BUS.UsersBUS;
 import DTO.ExamSchedulesDTO;
 import DTO.RegisExamDTO;
 import DTO.TeachersDTO;
+import DTO.UserLogin;
+import DTO.UsersDTO;
 
 public class frmDangKyCoiThi extends JInternalFrame {
 
@@ -45,6 +48,8 @@ public class frmDangKyCoiThi extends JInternalFrame {
 	private ExamSchedulesBUS scheduleBUS = new ExamSchedulesBUS();
 	private RegisExamBUS regisBUS = new RegisExamBUS();
 	private TeachersBUS teaBUS = new TeachersBUS();
+
+	private UsersBUS userBUS = new UsersBUS();
 	private List<ExamSchedulesDTO> lstSchedule = new ArrayList<>();
 	private DefaultTableModel modelDanhSachLichThi = new DefaultTableModel();
 	private JTextField txtCa;
@@ -118,7 +123,9 @@ public class frmDangKyCoiThi extends JInternalFrame {
 		btnDangKy.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String teaId = "T001";
+				String username = UserLogin.user;
+				UsersDTO user = userBUS.getTeacherById(username);
+				String teaId = user.getTea_id();
 				ExamSchedulesDTO exam = (ExamSchedulesDTO) cbLichThi.getSelectedItem();
 				
 				if(teaId.isEmpty() || exam == null) {
@@ -283,8 +290,19 @@ public class frmDangKyCoiThi extends JInternalFrame {
 			cbNamHoc.addItem(namHoc);
 		}
 
-		TeachersDTO teacher = teaBUS.getTeacherById("T001");
-		txtGiaoVien.setText(teacher.getTea_name());//-------------------------------------------
+		String username = UserLogin.user;
+		UsersDTO user = userBUS.getTeacherById(username);
+		if(user != null) {
+			String teaId = user.getTea_id();
+			TeachersDTO teacher = teaBUS.getTeacherById(teaId);
+			if(teacher != null) {
+				txtGiaoVien.setText(teacher.getTea_name());
+			}else {
+				txtGiaoVien.setText("");
+			}
+		}else {
+			txtGiaoVien.setText("");
+		}
 		
 		loadDataTableDanhSachDangKy();
 	}
