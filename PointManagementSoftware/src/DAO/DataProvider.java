@@ -8,7 +8,6 @@ public class DataProvider {
 	private static DataProvider instance;
 	private Connection connection;
 
-	// trả về instance duy nhất của lớp
 	public static DataProvider getInstance() {
 		if (instance == null) {
 			instance = new DataProvider();
@@ -17,14 +16,12 @@ public class DataProvider {
 		return instance;
 	}
 
-//khong cho tao instance moi tu ben ngoai
 	private DataProvider() {
-		
+
 	}
 
-//Thực hiện kết nối tới Database
 	public void connectToDatabase() {
-		String strServer = "DESKTOP-MIJIJRH";
+		String strServer = "LAPTOP-5KVBJE6O\\SQLEXPRESS";
 		String strDatabase = "db_QLDiemSV";
 
 		String userName = "sa";

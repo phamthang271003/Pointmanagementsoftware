@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -22,7 +23,7 @@ import javax.swing.event.MenuEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class JFrameNhapDiem extends JFrame {
+public class JFrameNhapDiem extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

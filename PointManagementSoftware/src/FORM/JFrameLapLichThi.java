@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
@@ -28,7 +29,7 @@ import DTO.*;
 import BUS.*;
 import javax.swing.JPasswordField;
 
-public class JFrameLapLichThi extends JFrame {
+public class JFrameLapLichThi extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -272,7 +273,7 @@ public class JFrameLapLichThi extends JFrame {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		        LocalDate localDate = LocalDate.parse(ngayThi, formatter);
 		        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
- 				ExamSchedulesDTO exam = new ExamSchedulesDTO(ma,hocKi,tenPhong.getRoom_id(),caThi,thoiLuong,nienKhoa,sqlDate);
+ 				ExamSchedulesDTO exam = new ExamSchedulesDTO(ma,hocKi,tenPhong.getRoomID(),caThi,thoiLuong,nienKhoa,sqlDate);
  				SubjectExamDTO sub = new SubjectExamDTO(ma,s.getSub_id(),Integer.parseInt(lanThi));
  				int kq = examSchedulesBUS.create(exam);
  				int qk = suBus.create(sub);

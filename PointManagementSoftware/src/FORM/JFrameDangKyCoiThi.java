@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -36,7 +37,7 @@ import java.awt.FlowLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.JScrollPane;
 
-public class JFrameDangKyCoiThi extends JFrame {
+public class JFrameDangKyCoiThi extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
