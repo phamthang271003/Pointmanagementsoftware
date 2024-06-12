@@ -37,7 +37,6 @@ INDEX VERSION 1.134+D:\Các Môn HK6\java\Pointmanagementsoftware\.metadata\.plu
 2502030817.index
 2482116312.index
 1131527766.index
-518094893.index
 2702562877.index
 696713381.index
 841740002.index

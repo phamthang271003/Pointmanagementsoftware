@@ -118,7 +118,7 @@ public class frmDangKyCoiThi extends JInternalFrame {
 		btnDangKy.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String teaId = "T001";
+				String teaId = "GV123";
 				ExamSchedulesDTO exam = (ExamSchedulesDTO) cbLichThi.getSelectedItem();
 				
 				if(teaId.isEmpty() || exam == null) {
@@ -283,8 +283,12 @@ public class frmDangKyCoiThi extends JInternalFrame {
 			cbNamHoc.addItem(namHoc);
 		}
 
-		TeachersDTO teacher = teaBUS.getTeacherById("T001");
-		txtGiaoVien.setText(teacher.getTea_name());//-------------------------------------------
+		TeachersDTO teacher = teaBUS.getTeacherById("GV123");
+		if(teacher == null) {
+			txtGiaoVien.setText("");
+		}else {
+			txtGiaoVien.setText(teacher.getTea_name());
+		}
 		
 		loadDataTableDanhSachDangKy();
 	}

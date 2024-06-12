@@ -21,7 +21,7 @@ public class DataProvider {
 	}
 
 	public void connectToDatabase() {
-		String strServer = "DESKTOP-MIJIJRH";
+		String strServer = "LAPTOP-5KVBJE6O\\SQLEXPRESS";
 		String strDatabase = "db_QLDiemSV";
 
 		String userName = "sa";
