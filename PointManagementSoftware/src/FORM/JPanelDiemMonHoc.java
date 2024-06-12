@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JScrollPane;
 
 public class JPanelDiemMonHoc extends JPanel {
 
@@ -33,7 +34,6 @@ public class JPanelDiemMonHoc extends JPanel {
 	private JTextField txtCKLan1;
 	private JTextField txtCKLan2;
 	private JTextField txtDiemTrungBinh;
-	private JTextField txtMon;
 	private JTextField txtMaSoSinhVien;
 	private JComboBox cbHocKi;
 	private JComboBox cbNamHoc;
@@ -41,11 +41,12 @@ public class JPanelDiemMonHoc extends JPanel {
 	
 	private SubjectsBUS subjectBus = new SubjectsBUS();
 	private ResultsBUS resultBus = new ResultsBUS();
-	private List<String> lstHocKy = new ArrayList<>();
-	private List<String> lstNamHoc = new ArrayList<>();
 	private List<SubjectsDTO> lstMonHoc = new ArrayList<>();
 	private List<ResultsDTO> lstResult = new ArrayList<>();
 	private DefaultTableModel modelDanhSachKetQua = new DefaultTableModel();
+	float diemLan1;
+	float diemLan2;
+	float diemTB;
 
 	/**
 	 * Create the panel.
@@ -60,7 +61,7 @@ public class JPanelDiemMonHoc extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Năm học");
-		lblNewLabel.setBounds(10, 26, 49, 14);
+		lblNewLabel.setBounds(10, 26, 77, 14);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Môn");
@@ -104,65 +105,67 @@ public class JPanelDiemMonHoc extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String maSV = txtMaSoSinhVien.getText();
-				float diemLan1 = Float.parseFloat(txtCKLan1.getText());
-				float diemLan2 = Float.parseFloat(txtCKLan2.getText());
-				float diemTB = Float.parseFloat(txtDiemTrungBinh.getText());
-				String maMon = cbMon.getSelectedItem().toString();
+				if(maSV.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Chưa chọn sinh viên cần nhập điểm!");
+					return;
+				}
 				
-				int check = resultBus.updateScore(maSV, maMon, diemLan1, diemLan2, diemTB);
+				try {
+					diemLan1 = Float.parseFloat(txtCKLan1.getText());
+					if(diemLan1 > 10 || diemLan1 < 0) {
+						JOptionPane.showMessageDialog(null, "Điểm thi 1 không hợp lệ");
+						return;
+					}
+					diemLan2 = Float.parseFloat(txtCKLan2.getText());
+					if(diemLan2 > 10 || diemLan2 < 0) {
+						JOptionPane.showMessageDialog(null, "Điểm thi 2 không hợp lệ");
+						return;
+					}
+					diemTB = Float.parseFloat(txtDiemTrungBinh.getText());
+				} catch (Exception e2) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Vui lòng nhập đúng điểm!");
+					return;
+				}
+				SubjectsDTO monHoc = (SubjectsDTO) cbMon.getSelectedItem();
+				if(monHoc == null) {
+					JOptionPane.showMessageDialog(null, "Chưa chọn môn học cần nhập điểm!");
+					return;
+				}
+				
+				int check = resultBus.updateScore(maSV, monHoc.getSub_id(), diemLan1, diemLan2, diemTB);
 				if(check != -1) {
+					loadDataTableResult(monHoc.getSub_id());
 					JOptionPane.showMessageDialog(null, "Cap nhat diem thanh cong");
 				}
-				loadDataTableResult(maMon);
+				loadDataTableResult(monHoc.getSub_id());
 			}
 		});
-		btnCapNhat.setBounds(592, 97, 77, 23);
+		btnCapNhat.setBounds(561, 97, 108, 23);
 		panel.add(btnCapNhat);
 		
 		cbMon = new JComboBox();
 		
-		cbMon.setBounds(62, 58, 144, 22);
+		cbMon.setBounds(99, 58, 221, 22);
 		panel.add(cbMon);
 		
-		JButton btnChonMon = new JButton("->");
-		btnChonMon.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					String name = subjectBus.getById(cbMon.getSelectedItem().toString()).getSub_name();
-					txtMon.setText(name);
-				} catch (Exception ex) {
-					// TODO: handle exception
-					ex.printStackTrace();
-				}
-			}
-		});
-		btnChonMon.setBounds(216, 58, 45, 23);
-		panel.add(btnChonMon);
-		
-		txtMon = new JTextField();
-		txtMon.setEnabled(false);
-		txtMon.setBounds(271, 59, 96, 20);
-		panel.add(txtMon);
-		txtMon.setColumns(10);
-		
 		JLabel lblNewLabel_7 = new JLabel("Mã Số Sinh Viên");
-		lblNewLabel_7.setBounds(452, 62, 89, 14);
+		lblNewLabel_7.setBounds(452, 62, 111, 14);
 		panel.add(lblNewLabel_7);
 		
 		txtMaSoSinhVien = new JTextField();
 		txtMaSoSinhVien.setEnabled(false);
-		txtMaSoSinhVien.setBounds(551, 56, 96, 20);
+		txtMaSoSinhVien.setBounds(573, 59, 96, 20);
 		panel.add(txtMaSoSinhVien);
 		txtMaSoSinhVien.setColumns(10);
 		
 		cbNamHoc = new JComboBox();
 		
-		cbNamHoc.setBounds(84, 22, 199, 22);
+		cbNamHoc.setBounds(121, 22, 199, 22);
 		panel.add(cbNamHoc);
 		
 		JLabel lblNewLabel_8 = new JLabel("Học Kỳ");
-		lblNewLabel_8.setBounds(366, 26, 49, 14);
+		lblNewLabel_8.setBounds(393, 26, 49, 14);
 		panel.add(lblNewLabel_8);
 		
 		cbHocKi = new JComboBox();
@@ -176,25 +179,50 @@ public class JPanelDiemMonHoc extends JPanel {
 		add(panel_1);
 		panel_1.setLayout(null);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 27, 675, 200);
+		panel_1.add(scrollPane);
+		
 		tblDanhSachDiemMonHoc = new JTable();
+		scrollPane.setViewportView(tblDanhSachDiemMonHoc);
 		tblDanhSachDiemMonHoc.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null},
 			},
 			new String[] {
-				"M\u00E3 S\u1ED1 Sinh Vi\u00EAn", "T\u00EAn Sinh Vi\u00EAn", "Gi\u1EEFa K\u1EF3", "Cu\u1ED1i K\u1EF3 L\u1EA7n 1", "Cu\u1ED1i K\u1EF3 L\u1EA7n 2", "Trung B\u00ECnh"
+				"M\u00E3 S\u1ED1 Sinh Vi\u00EAn", "T\u00EAn Sinh Vi\u00EAn", "Cu\u1ED1i K\u1EF3 L\u1EA7n 1", "Cu\u1ED1i K\u1EF3 L\u1EA7n 2", "Trung B\u00ECnh"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				true, true, true, true, true, false
+				true, true, true, true, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		tblDanhSachDiemMonHoc.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		tblDanhSachDiemMonHoc.setBounds(10, 35, 658, 200);
-		panel_1.add(tblDanhSachDiemMonHoc);
+		
+		tblDanhSachDiemMonHoc.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				if(!e.getValueIsAdjusting()) {
+					int selectedRow = tblDanhSachDiemMonHoc.getSelectedRow();
+					if(selectedRow != -1) {
+						String masv = tblDanhSachDiemMonHoc.getValueAt(selectedRow, 0).toString();
+						float diemLan1 = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 1).toString());
+						float diemLan2 = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 2).toString());
+						float diemTB = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 3).toString());
+						
+						txtCKLan1.setText(String.valueOf(diemLan1));
+						txtCKLan2.setText(String.valueOf(diemLan2));
+						txtDiemTrungBinh.setText(String.valueOf(diemTB));
+						txtMaSoSinhVien.setText(masv);
+					} else {
+						System.out.println("No row selected");
+					}
+				}
+			}
+		});
 
 		init();
 		cbHocKi.addActionListener(new ActionListener() {
@@ -211,42 +239,21 @@ public class JPanelDiemMonHoc extends JPanel {
 		modelDanhSachKetQua.addColumn("Mã sinh viên");
 		modelDanhSachKetQua.addColumn("Điểm thi");
 		modelDanhSachKetQua.addColumn("Điểm thi lần 2");
-		modelDanhSachKetQua.addColumn("Lần thi");
 		modelDanhSachKetQua.addColumn("Điểm trung bình");
 		
 		cbMon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modelDanhSachKetQua.setRowCount(0);
-				lstResult = resultBus.getListStudentBySubject(cbMon.getSelectedItem().toString());
+				SubjectsDTO subject = (SubjectsDTO) cbMon.getSelectedItem();
+				if(subject == null) {
+					return;
+				}
+				lstResult = resultBus.getListStudentBySubject(subject.getSub_id());
 
 				for(ResultsDTO result : lstResult) {
-					modelDanhSachKetQua.addRow(new Object[] {result.getStu_id(), result.getRes_score(), result.getRes_score_2(), result.getRes_time(), result.getAvg_score()});
+					modelDanhSachKetQua.addRow(new Object[] {result.getStu_id(), result.getRes_score(), result.getRes_score_2(), result.getAvg_score()});
 				}
 				tblDanhSachDiemMonHoc.setModel(modelDanhSachKetQua);
-			}
-		});
-		
-		tblDanhSachDiemMonHoc.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				// TODO Auto-generated method stub
-				if(!e.getValueIsAdjusting()) {
-					int selectedRow = tblDanhSachDiemMonHoc.getSelectedRow();
-					if(selectedRow != -1) {
-						String masv = tblDanhSachDiemMonHoc.getValueAt(selectedRow, 0).toString();
-						float diemLan1 = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 1).toString());
-						float diemLan2 = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 2).toString());
-						float diemTB = Float.parseFloat(tblDanhSachDiemMonHoc.getValueAt(selectedRow, 4).toString());
-						
-						txtCKLan1.setText(String.valueOf(diemLan1));
-						txtCKLan2.setText(String.valueOf(diemLan2));
-						txtDiemTrungBinh.setText(String.valueOf(diemTB));
-						txtMaSoSinhVien.setText(masv);
-					} else {
-						System.out.println("No row selected");
-					}
-				}
 			}
 		});
 	}
@@ -255,17 +262,24 @@ public class JPanelDiemMonHoc extends JPanel {
 		try {
 			
 			lstMonHoc = subjectBus.getAllSubject();
-			
-//			for (String hocKy : lstMonHoc.stream().map(SubjectsDTO::getSub_semester).collect(Collectors.toList())) {
-//				cbHocKi.addItem(hocKy);
-//			}
-//			
-//			for (int namHoc : lstMonHoc.stream().map(SubjectsDTO::getSub_year).collect(Collectors.toList())) {
-//				cbNamHoc.addItem(namHoc);
-//			}
+			List<String> dataHocKy = new ArrayList<>();
+			List<String> dataNamHoc = new ArrayList<>();
 			for(SubjectsDTO subject : lstMonHoc) {
-				cbHocKi.addItem(subject.getSub_semester());
-				cbNamHoc.addItem(String.valueOf(subject.getSub_year()));
+				if(!dataHocKy.contains(subject.getSub_semester())) {
+					dataHocKy.add(subject.getSub_semester());
+				}
+				
+				if(!dataNamHoc.contains(String.valueOf(subject.getSub_year()))) {
+					dataNamHoc.add(String.valueOf(subject.getSub_year()));
+				}
+			}
+			
+			for(String hocKy : dataHocKy) {
+				cbHocKi.addItem(hocKy);
+			}
+			
+			for(String namHoc : dataNamHoc) {
+				cbNamHoc.addItem(namHoc);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -281,12 +295,9 @@ public class JPanelDiemMonHoc extends JPanel {
 			String hocKy = cbHocKi.getSelectedItem().toString();
 			int namHoc = Integer.parseInt(cbNamHoc.getSelectedItem().toString());
 			lstMonHoc = subjectBus.showListSubjectsBySemesterAndYear(hocKy, namHoc);
-//			if(hocKy.isEmpty() || namHoc == 0) {
-//				return;
-//			}
 			
 			for(SubjectsDTO subject : lstMonHoc) {
-				cbMon.addItem(subject.getSub_id());
+				cbMon.addItem(subject);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -298,6 +309,7 @@ public class JPanelDiemMonHoc extends JPanel {
 		lstResult = resultBus.getListStudentBySubject(subId);
 
 		for(ResultsDTO result : lstResult) {
+			
 			modelDanhSachKetQua.addRow(new Object[] {result.getStu_id(), result.getRes_score(), result.getRes_score_2(), result.getRes_time(), result.getAvg_score()});
 		}
 		tblDanhSachDiemMonHoc.setModel(modelDanhSachKetQua);
