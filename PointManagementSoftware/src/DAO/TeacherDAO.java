@@ -210,8 +210,8 @@ public class TeacherDAO {
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                         TeacherDTO teacher = new TeacherDTO();
-                        teacher.setTeaId(academicID);
-                        teacher.setTeaName(academicID);
+                        teacher.setTeaId(rs.getString("tea_id"));
+                        teacher.setTeaName(rs.getString("tea_name"));
 
                         list.add(teacher);
                 }

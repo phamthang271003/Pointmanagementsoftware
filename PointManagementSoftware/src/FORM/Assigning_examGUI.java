@@ -6,6 +6,7 @@ import BUS.DepartmentBUS;
 import BUS.TeacherBUS;
 import DTO.Assigning_examDTO;
 import DTO.ComboItem;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -145,7 +146,7 @@ public class Assigning_examGUI extends JInternalFrame implements ActionListener 
                 });
         }
 
-        private void loadSubject(String academicID) {      
+        private void loadSubject(String academicID) {
                 cbSubjectID.removeAllItems();
                 BUS.SubjectBUS subjectBUS = new BUS.SubjectBUS();
                 ArrayList<DTO.SubjectDTO> subjectList = subjectBUS.getSubjectsByAcademic(academicID);
@@ -203,9 +204,17 @@ public class Assigning_examGUI extends JInternalFrame implements ActionListener 
                 boolean success = Assigning_examBUS.addAssigning_exam(new Assigning_examDTO(selectedSubject.getId(), selectedTeacher.getId()));
                 if (success) {
                         JOptionPane.showMessageDialog(this, "Assigning_exam added successfully");
-                        tableModel.addRow(new Object[]{selectedSubject.getId(), selectedTeacher.getId()});
+                        refreshTable();
                 } else {
                         JOptionPane.showMessageDialog(this, "Assigning_exam already exists");
+                }
+        }
+
+        private void refreshTable() {
+                tableModel.setRowCount(0);
+                ArrayList<Assigning_examDTO> Assigning_examList = Assigning_examBUS.getAllAssigning_exam();
+                for (Assigning_examDTO Assigning_exam : Assigning_examList) {
+                        tableModel.addRow(new Object[]{Assigning_exam.getSub_id(), Assigning_exam.getTea_id()});
                 }
         }
 }

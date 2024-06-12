@@ -39,9 +39,7 @@ public class frmStudents extends JFrame {
 	private JComboBox<String> cboLop;
 	private JComboBox<String> cboNganh;
 	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -56,9 +54,7 @@ public class frmStudents extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public frmStudents() {
 		DataProvider.getInstance().connectToDatabase();
 		this.studentBUS=new StudentBUS();

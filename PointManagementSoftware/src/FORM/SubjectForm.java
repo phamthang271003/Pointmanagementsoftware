@@ -44,7 +44,7 @@ public class SubjectForm extends JInternalFrame {
 
 	public void init() {
 		this.setTitle("Quản lý môn học");
-		this.setSize(1000, 600);
+		this.setSize(1200, 600);
 		getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Subject ID:");

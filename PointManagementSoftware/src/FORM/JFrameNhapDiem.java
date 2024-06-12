@@ -50,7 +50,8 @@ public class JFrameNhapDiem extends JInternalFrame {
 	 */
 	public JFrameNhapDiem() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 928, 631);
+		this.setSize(1200,600);
+		//setBounds(100, 100, 928, 631);
 		
 		JMenuBar menuBar = new JMenuBar();
 		

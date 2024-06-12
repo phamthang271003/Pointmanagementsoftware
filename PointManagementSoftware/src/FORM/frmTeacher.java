@@ -65,16 +65,12 @@ public class frmTeacher extends JInternalFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public frmTeacher() {
 		this.setTitle("Quản lý giảng viên");
-	    this.setSize(1000, 500);
+	    this.setSize(1200, 600);
 		DataProvider.getInstance().connectToDatabase();
 		this.teacherBUS=new TeacherBUS();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1011, 635);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

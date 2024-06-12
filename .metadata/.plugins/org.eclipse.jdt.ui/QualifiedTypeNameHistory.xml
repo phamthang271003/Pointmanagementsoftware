@@ -57,4 +57,5 @@
     <fullyQualifiedTypeName name="FORM.StudyRecordFrame"/>
     <fullyQualifiedTypeName name="FORM.StudyRecordsGUI"/>
     <fullyQualifiedTypeName name="javax.swing.JInternalFrame"/>
+    <fullyQualifiedTypeName name="javax.swing.table.TableRowSorter"/>
 </qualifiedTypeNameHistroy>

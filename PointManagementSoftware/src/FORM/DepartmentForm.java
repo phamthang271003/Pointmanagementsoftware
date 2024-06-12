@@ -40,7 +40,7 @@ public class DepartmentForm extends JInternalFrame {
 
 	public void init() {
 		this.setTitle("Quản lý Khoa");
-		this.setSize(1000, 600);
+		this.setSize(1200, 600);
 		getContentPane().setLayout(null);
 
 		tableModel = new DefaultTableModel();
@@ -79,7 +79,6 @@ public class DepartmentForm extends JInternalFrame {
 		        }
 		    }
 		});
-
 
 		btnThem.setBounds(488, 30, 85, 21);
 		getContentPane().add(btnThem);

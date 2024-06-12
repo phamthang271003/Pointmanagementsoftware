@@ -68,7 +68,8 @@ public class JFrameLapLichThi extends JInternalFrame {
 	 */
 	public JFrameLapLichThi() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1237, 639);
+		this.setSize(1200,600);
+		//setBounds(100, 100, 1237, 639);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

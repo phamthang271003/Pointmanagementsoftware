@@ -45,7 +45,7 @@ public class AcademicForm extends JInternalFrame {
 
     public void init() {
         this.setTitle("Quản lý ngành");
-        this.setSize(1000, 600);
+        this.setSize(1200, 600);
         getContentPane().setLayout(null);
         
         JLabel lblNewLabel = new JLabel("Academic ID:");
@@ -116,6 +116,7 @@ public class AcademicForm extends JInternalFrame {
                         academicDTO.setDepart_id(selectedDepartment.getDepart_id());
                         academicBUS.addAcademic(academicDTO);
 
+  
                         updateTable();
                         adding = false;
                     }
