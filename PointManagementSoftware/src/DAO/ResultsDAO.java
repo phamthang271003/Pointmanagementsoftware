@@ -40,18 +40,17 @@ public class ResultsDAO {
 		return lstResult;
 	}
 	
-	public int updateScore(String stuId, String subId, float diem1, float diem2, float diemTB) {
+	public int updateScore(String stuId, String subId, float diem1, float diem2) {
 		int check = -1;
 		
 		try {
-			String query = "{call CapNhatDiemSinhVien(?, ?, ?, ?, ?)}";
+			String query = "{call CapNhatDiemSinhVien(?, ?, ?, ?)}";
 			CallableStatement callStmt = conn.prepareCall(query);
 			
 			callStmt.setString(1, stuId);
 			callStmt.setString(2, subId);
 			callStmt.setFloat(3, diem1);
 			callStmt.setFloat(4, diem2);
-			callStmt.setFloat(5, diemTB);
 			
 			check = callStmt.executeUpdate();
 		} catch (Exception e) {

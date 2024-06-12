@@ -1,6 +1,7 @@
 package BUS;
 
 import DAO.StudentDAO;
+import DAO.StudentsDAO;
 import DTO.StudentsDTO;
 //import DTO.StudyRecordDTO;
 import DTO.StudyRecordDTO;
@@ -10,8 +11,10 @@ import java.util.ArrayList;
 public class StudentsBUS {
 
         private StudentDAO studentsDAO;
+        private StudentsDAO stuDAO;
         public StudentsBUS() {
                 studentsDAO = new StudentDAO();
+                stuDAO = new StudentsDAO();
         }
         public ArrayList<StudentsDTO> getAllStudent() {
 
@@ -68,4 +71,7 @@ public class StudentsBUS {
                         return null;
                 }
         }
+        public StudentsDTO getStudentById(String stuId) {
+            return stuDAO.getStudentById(stuId);
+    }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,14 +33,13 @@ import DTO.ExamSchedulesDTO;
 import DTO.RegisExamDTO;
 import DTO.TeachersDTO;
 
-public class frmDangKyCoiThi extends JFrame {
+public class frmDangKyCoiThi extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tblLichThi;
 	private JComboBox cbNamHoc;
 	private JComboBox cbHocKy;
-	private JComboBox cbGiaoVien;
 	private JComboBox cbLichThi;
 	
 	private ExamSchedulesBUS scheduleBUS = new ExamSchedulesBUS();
@@ -51,6 +51,7 @@ public class frmDangKyCoiThi extends JFrame {
 	private JTextField txtThoiLuong;
 	private JTextField txtPhong;
 	private JTextField txtNgayThi;
+	private JTextField txtGiaoVien;
 
 	/**
 	 * Launch the application.
@@ -113,27 +114,23 @@ public class frmDangKyCoiThi extends JFrame {
 		lblNewLabel_3.setBounds(238, 74, 49, 14);
 		panel.add(lblNewLabel_3);
 		
-		cbGiaoVien = new JComboBox();
-		cbGiaoVien.setBounds(297, 70, 193, 22);
-		panel.add(cbGiaoVien);
-		
 		JButton btnDangKy = new JButton("Cập nhật");
 		btnDangKy.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TeachersDTO teacher = (TeachersDTO) cbGiaoVien.getSelectedItem();
+				String teaId = "T001";
 				ExamSchedulesDTO exam = (ExamSchedulesDTO) cbLichThi.getSelectedItem();
 				
-				if(teacher == null || exam == null) {
+				if(teaId.isEmpty() || exam == null) {
 					JOptionPane.showMessageDialog(null, "Chưa chọn năm học và học kỳ!");
 					return;
 				}
 				
-				int check = regisBUS.RegisterExamSchedule(exam.getExam_id(), teacher.getTea_id());
+				int check = regisBUS.RegisterExamSchedule(exam.getExam_id(), teaId);
 				if(check != -1) {
 					JOptionPane.showMessageDialog(null, "Cập nhật coi thi thành công");
 				} else {
-					JOptionPane.showMessageDialog(null, "Cập nhật coi thi thất bại! Giáo viên " + teacher.getTea_name() + " đã đăng ký lịch coi thi " + exam.getExam_id());
+					JOptionPane.showMessageDialog(null, "Cập nhật coi thi thất bại! Giáo viên với mã là " + teaId + " đã đăng ký lịch coi thi " + exam.getExam_id());
 				}
 
 				loadDataTableDanhSachDangKy();
@@ -193,6 +190,13 @@ public class frmDangKyCoiThi extends JFrame {
 		panel_2.add(txtThoiLuong);
 		txtThoiLuong.setEnabled(false);
 		txtThoiLuong.setColumns(10);
+		
+		
+		txtGiaoVien = new JTextField();
+		txtGiaoVien.setEnabled(false);
+		txtGiaoVien.setBounds(297, 71, 193, 20);
+		panel.add(txtGiaoVien);
+		txtGiaoVien.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -257,7 +261,6 @@ public class frmDangKyCoiThi extends JFrame {
 	private void init() {
 		// TODO Auto-generated method stub
 		loadColumnLichThi();
-		loadDataGiaoVien();
 		lstSchedule = scheduleBUS.getAll();
 		
 		List<String> dataHocKy = new ArrayList<>();
@@ -279,17 +282,11 @@ public class frmDangKyCoiThi extends JFrame {
 		for(String namHoc : dataNamHoc) {
 			cbNamHoc.addItem(namHoc);
 		}
+
+		TeachersDTO teacher = teaBUS.getTeacherById("T001");
+		txtGiaoVien.setText(teacher.getTea_name());//-------------------------------------------
 		
 		loadDataTableDanhSachDangKy();
-	}
-
-	private void loadDataGiaoVien() {
-		// TODO Auto-generated method stub
-		List<TeachersDTO> lstTeacher = teaBUS.getAll();
-		
-		for(TeachersDTO teacher : lstTeacher) {
-			cbGiaoVien.addItem(teacher);
-		}
 	}
 
 	private void loadColumnLichThi() {

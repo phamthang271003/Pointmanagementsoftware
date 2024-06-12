@@ -137,6 +137,7 @@ public class MainForm extends JFrame {
 		mnChucNang.add(chkPCCoiThi);
 
 		chkDkCoiThi = new JCheckBoxMenuItem("Đăng ký coi thi");
+		
 		mnChucNang.add(chkDkCoiThi);
 		
 		chkPhanCongChamThi = new JCheckBoxMenuItem("Phan Cong Cham Thi");
@@ -322,6 +323,17 @@ public class MainForm extends JFrame {
 				}
 				currentCheckbox = chkLapLichThi;
 				JFrameLapLichThi rf = new JFrameLapLichThi();
+				desktopPane.add(rf);
+				rf.setVisible(true);
+			}
+		});
+		chkDkCoiThi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentCheckbox != null) {
+					currentCheckbox.setSelected(false);
+				}
+				currentCheckbox = chkDkCoiThi;
+				frmDangKyCoiThi rf = new frmDangKyCoiThi();
 				desktopPane.add(rf);
 				rf.setVisible(true);
 			}
