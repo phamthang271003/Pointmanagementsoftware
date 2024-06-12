@@ -15700,3 +15700,6 @@ java.util.concurrent.TimeoutException
 
 !ENTRY com.genuitec.copilot4eclipse 4 0 2024-06-12 12:27:52.220
 !MESSAGE Request checkStatus failed with message: Stream closed with error code NGHTTP2_REFUSED_STREAM
+
+!ENTRY com.genuitec.copilot4eclipse 4 0 2024-06-12 12:29:53.631
+!MESSAGE Request checkStatus failed with message: Stream closed with error code NGHTTP2_REFUSED_STREAM
